@@ -34,5 +34,6 @@ export default {
         scroll-snap-align: start;
         width: 100%;
         margin: 0 auto;
+        border: 10px solid rgb(119, 121, 122);
     }
 </style>

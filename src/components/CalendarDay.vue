@@ -1,5 +1,5 @@
 <template>
-  <div @click="assignmentPrompt" class="dayContainer" :class="classes">
+  <div @click="assignmentPrompt" class="dayContainer">
     <div class="dayContents">
       <div class="day">{{ day }}</div>
     </div>
@@ -12,12 +12,6 @@ export default {
   computed: {
     day(){
       return this.date.getDate();
-    },
-    classes() {
-      return {
-        'lightDay': !!(this.date.getMonth() % 2),
-        'darkDay': !(this.date.getMonth() % 2)
-      };
     },
     colorMod() {
       return this.nth ? 1 : 2;
@@ -48,14 +42,8 @@ export default {
       bottom: 0;
       left: 0;
       right: 0;
-      .lightDay & {
-        background: white;
-        color: black;
-      }
-      .darkDay & {
-        background: black;
-        color: white;
-      }
+    
+      
   }
   .day {
     text-align: right;
