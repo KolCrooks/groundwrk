@@ -1,6 +1,6 @@
 <template>
     <div class="bottombar">
-        <div class="container" v-for="page in pages" :key="page.link" @CLICK="$router.push(page.link)">
+        <div class="container" v-for="page in pages" :key="page.link" @click="$router.push(page.link)">
             <img :src="page.img">
         </div>
     </div>
@@ -40,7 +40,7 @@ export default {
     flex-basis: 100%;
     max-height: 100%;
     & img {
-        height: 100%;
+        max-height: 100%;
     }
 }
 </style>

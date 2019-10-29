@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <NavBar></NavBar>
-    <router-link to="grades"><img src = "./assets/redCalendar.png"></router-link>
+    <router-link to="grades">Grades</router-link>
     <router-link to = "calendar">Calendar</router-link>
     <router-link to = "profile">Profile</router-link>
     <router-view />
