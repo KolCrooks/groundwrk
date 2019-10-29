@@ -25,40 +25,6 @@
         Name:
         <br>Scheduling Confines: 
       </div> 
-      <table>
-        <tr>
-          <th>Monday</th>
-          <th>Tuesday</th>
-          <th>Wednesday</th>
-          <th>Thursday</th>
-          <th>Friday</th>
-          <th>Saturday</th>
-          <th>Sunday</th>
-        </tr>
-        <tr>
-          <th>Avaible?
-            <br>Time Free:
-          </th>
-          <th>Avaible?
-            <br>Time Free:
-          </th>
-          <th>Avaible?
-            <br>Time Free:
-          </th>
-          <th>Avaible?
-            <br>Time Free:
-          </th>
-          <th>Avaible?
-            <br>Time Free:
-          </th>
-          <th>Avaible?
-            <br>Time Free:
-          </th>
-          <th>Avaible?
-            <br>Time Free:
-          </th>
-        </tr>
-      </table>
   </div>
 </template>
  
@@ -117,6 +83,4 @@ export default {
   border: 10px solid rgb(111, 112, 119);
  
 }
-table{border:solid black thick; border:10px solid rgb(111, 112, 119); width: 50%;}
-th{border:solid rgb(0, 0, 0) thin;}
 </style>
