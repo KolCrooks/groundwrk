@@ -8,9 +8,9 @@
 
 <script>
 export default {
-  props: ['date'],
+  props: ["date"],
   computed: {
-    day(){
+    day() {
       return this.date.getDate();
     },
     colorMod() {
@@ -20,7 +20,7 @@ export default {
   methods: {
     assignmentPrompt() {
       if (!this.$store.state.zoomedOut) {
-        this.$store.commit('popoutActive', true);
+        this.$store.commit("popoutActive", true);
       }
     }
   }
@@ -28,26 +28,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .dayContainer {
-      width: calc(100% / 7);
-      padding-bottom: calc(calc(100% / 7) / 1.61803398875);
-      position: relative;
-      border-style: solid;
-      border-color: gray;
-      border-width: 1.5px;
-  }
-  .dayContents {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    
-      
-  }
-  .day {
-    text-align: right;
-    margin-right: 3%;
-    margin-top: 2%;
-  }
+.dayContainer {
+  width: calc(100% / 7);
+  padding-bottom: calc(calc(100% / 7) / 1.61803398875);
+  position: relative;
+  border-style: solid;
+  border-color: gray;
+  border-width: 1.5px;
+}
+.dayContents {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.day {
+  text-align: right;
+  margin-right: 3%;
+  margin-top: 2%;
+}
 </style>
