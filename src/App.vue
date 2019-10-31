@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <LoginHandle></LoginHandle>
     <router-view />
     <NavBar></NavBar>
   </div>
@@ -7,9 +8,10 @@
 
 <script>
 import NavBar from "@/components/NavBar.vue";
+import LoginHandle from "@/components/LoginHandle.vue"
 
 export default {
-  components: { NavBar }
+  components: { NavBar, LoginHandle }
 };
 </script>
 
