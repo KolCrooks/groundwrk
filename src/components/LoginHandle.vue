@@ -7,6 +7,7 @@
       transition-show="slide-up"
       transition-hide="slide-down"
       >
+      <GoogleLogin></GoogleLogin>
       </q-dialog>
     </div>
 </template>
@@ -16,6 +17,7 @@ export default {
     data(){
         return {
             dialog: false,
+            maximizedToggle: true,
         }
     },
     name: "LoginHandle",

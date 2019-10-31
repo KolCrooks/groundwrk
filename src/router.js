@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
 import calendar from "./views/calendar.vue";
 import grades from "./views/grades.vue";
 import profile from "./views/profile.vue";
@@ -11,8 +10,8 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: Home
+      name: "profile",
+      component: profile
     },
     {
       path: "/calendar",
@@ -23,11 +22,6 @@ export default new Router({
       path: "/grades",
       name: "grades",
       component: grades
-    },
-    {
-      path: "/profile",
-      name: "profile",
-      component: profile
     }
   ]
 });
