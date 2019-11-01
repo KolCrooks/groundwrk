@@ -1,7 +1,7 @@
 <template>
-  <div @click="assignmentPrompt" class="dayContainer">
+  <div @click="assignmentPrompt" class="dayContainer shadow-2">
     <div class="dayContents">
-      <div class="day">{{ day }}</div>
+      <div class="day">{{month}}, {{ day }}</div>
     </div>
   </div>
 </template>
@@ -13,8 +13,8 @@ export default {
     day() {
       return this.date.getDate();
     },
-    colorMod() {
-      return this.nth ? 1 : 2;
+    month(){
+      return this.date.toLocaleString('default', { month: 'short' });
     }
   },
   methods: {
@@ -29,12 +29,9 @@ export default {
 
 <style lang="scss" scoped>
 .dayContainer {
-  width: calc(100% / 7);
-  padding-bottom: calc(calc(100% / 7) / 1.61803398875);
+  padding-bottom: calc(var(--dayWidth) / 1.61803398875 * 2);
   position: relative;
-  border-style: solid;
-  border-color: gray;
-  border-width: 1.5px;
+  margin: 1.5px;
 }
 .dayContents {
   position: absolute;
@@ -47,5 +44,6 @@ export default {
   text-align: right;
   margin-right: 3%;
   margin-top: 2%;
+  font-size: 1.5rem;
 }
 </style>

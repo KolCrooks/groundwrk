@@ -6,5 +6,16 @@ import "@quasar/extras/material-icons/material-icons.css";
 import Quasar from "quasar";
 
 Vue.use(Quasar, {
-  config: {}
+  config: {
+    brand: {
+      primary: '#00171f',
+      secondary: '#003459',
+      accent: '#00a8e8',
+
+      positive: '#21BA45',
+      negative: '#C10015',
+      info: '#007ea7',
+      warning: '#F2C037'
+    }
+  }
 });

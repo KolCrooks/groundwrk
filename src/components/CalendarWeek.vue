@@ -1,6 +1,6 @@
 <template>
   <div class="calWeek">
-    <CalendarDay v-for="d in dates" :date="d" :key="d.toString()">
+    <CalendarDay class="cDay" v-for="d in dates" :date="d" :key="d.toString()">
     </CalendarDay>
   </div>
 </template>
@@ -32,10 +32,30 @@ export default {
 <style lang="scss" scoped>
 .calWeek {
   display: flex;
-  flex-direction: row;
   scroll-snap-align: start;
   width: 100%;
   margin: 0 auto;
-  border: 10px solid rgb(119, 121, 122);
 }
+
+@media only screen and (max-width: 815px) {
+  .calWeek {
+    flex-direction: column;
+    & .cDay {
+      --dayWidth: calc(100%-3px);
+      width: var(--dayWidth);
+    }
+  }
+}
+
+@media only screen and (min-width: 815px) {
+  .calWeek {
+    flex-direction: row;
+    & .cDay {
+      --dayWidth: calc(100% / 7 - 3px);
+      width: var(--dayWidth);
+    }
+  }
+}
+
+
 </style>

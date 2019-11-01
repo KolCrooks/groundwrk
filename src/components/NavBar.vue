@@ -1,15 +1,17 @@
 <template>
   <div class="navbar">
-    <div class="bottomBar">
-      <div
-        class="container"
-        v-for="page in pages"
-        :key="page.link"
-        @click="$router.push(page.link)"
-      >
-        <img :src="page.img" />
-      </div>
-    </div>
+    <q-toolbar class="fixed-bottom bg-primary text-white padding">
+        <q-tabs
+          ref="navTabs"
+          v-model="tab"
+          class="bg-primary text-white shadow-2 full-width"
+          :inline-label="!$q.screen.sm"
+        >
+          <q-route-tab v-for="page in pages" :key="page.name"
+          :name="page.name" :icon="page.icon"
+            :label="page.name" :to="page.route" />
+        </q-tabs>
+    </q-toolbar>
   </div>
 </template>
 
@@ -19,36 +21,36 @@ export default {
     return {
       pages: [
         {
-          link: "/",
-          img: require("../assets/profile.png")
+          route: "/calendar",
+          name: "Calendar",
+          icon: "calendar_today"
         },
         {
-          link: "/calendar",
-          img: require("../assets/redCalendar.png")
+          route: "/grades",
+          name: "Grades",
+          icon: "spellcheck"
         },
         {
-          link: "/grades",
-          img: require("../assets/jb.png") //change image
+          route: "/",
+          name: "Profile",
+          icon: "account_circle",
         }
-      ]
+      ],
+      tab: null,
     };
+  },
+  methods:{
+    t(e){
+      console.log(e)
+    }
+  },
+  mounted(){
+    this.$q.screen.setSizes({ sm: 300, md: 600, lg: 1000, xl: 2000 })
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.bottomBar {
-  max-height: 10%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  height: auto;
-  display: flex;
-  flex-direction: row;
-  position: fixed;
-  bottom: 0;
-  background: rgba(1, 1, 1, 0.5);
-}
 
 .container {
   width: 33%;
