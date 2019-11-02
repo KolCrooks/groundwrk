@@ -1,7 +1,11 @@
 <template>
   <div>
     <q-toolbar class="toolbar bg-secondary text-white">
-        <q-btn flat round dense icon="menu" />
+        <q-btn flat square dense>
+          <q-avatar square>
+            <img src="../assets/NOBACK.png">
+          </q-avatar>
+        </q-btn>
         <q-toolbar-title>Calendar</q-toolbar-title>
         <q-btn flat round dense icon="search" />
     </q-toolbar>
@@ -13,7 +17,7 @@
 import CalendarWeek from '@/components/CalendarWeek.vue';
 
 export default {
-  components: {CalendarWeek}
+  components: {CalendarWeek},
 };
 </script>
 
