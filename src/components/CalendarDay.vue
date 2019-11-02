@@ -1,7 +1,8 @@
 <template>
   <div @click="assignmentPrompt" class="dayContainer shadow-2">
     <div class="dayContents">
-      <div class="day">{{month}}, {{ day }}</div>
+      <div class="day">{{month}}, {{ day }}
+      </div>
     </div>
   </div>
 </template>
@@ -23,7 +24,24 @@ export default {
         this.$store.commit("popoutActive", true);
       }
     }
-  }
+  },
+  tasks: [
+    {
+      name: 'Study for Calc',
+      howLong: '20 Minutes',
+      testDay: 'Assingment on 4th'
+    },
+    {
+      name: 'Study for Chem',
+      howLong: '15 Minutes',
+      testDay: 'Assingment on 6th'
+    },
+    {
+      name: 'Study for Biology',
+      howLong: '15 Minutes',
+      testDay: 'Assingment on 5th'
+    }
+  ]
 };
 </script>
 
