@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
+    "connect-history-api-fallback": "^1.6.0",
     "core-js": "^2.6.5",
     "quasar": "^1.0.0",
     "vue": "^2.6.10",
