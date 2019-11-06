@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="q-app">
     <LoginHandle></LoginHandle>
     <router-view />
     <NavBar></NavBar>
@@ -19,5 +19,8 @@ export default {
 body {
   margin: 0;
   height: 100vh;
+}
+.text-strikethrough{
+  text-decoration: line-through;
 }
 </style>
