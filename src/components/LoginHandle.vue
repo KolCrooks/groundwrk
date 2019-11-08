@@ -7,12 +7,6 @@
       transition-show="slide-up"
       transition-hide="slide-down"
       >
-        <g-signin-button
-            :params="googleSignInParams"
-            @success="onSignInSuccess"
-            @error="onSignInError">
-            Sign in with Google
-        </g-signin-button>
       </q-dialog>
     </div>
 </template>
@@ -22,7 +16,7 @@
 export default {
     data(){
         return {
-            dialog: true,
+            dialog: false,
             maximizedToggle: true,
             googleSignInParams: {
                 client_id: '356679115182-60a1e40t5i2neo5l2472l0sbtre8ju9v.apps.googleusercontent.com',
