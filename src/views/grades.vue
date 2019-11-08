@@ -24,7 +24,22 @@ export default {
       dialog: false,
     }
   },
+  methods: {
+    fetchGrades(username,password){
+      fetch('http://localhost:3000/api/grades',{
+        method: 'GET',
+        headers: {
+          username,
+          password,
+          url: 'https://powerschool.er9.org/'
+        }
+      }).then(console.log).catch(console.error)
+    }
+  },
+  created(){
+  },
   mounted(){
+    
   }
 };
 </script>
