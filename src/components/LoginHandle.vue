@@ -7,12 +7,6 @@
       transition-show="slide-up"
       transition-hide="slide-down"
       >
-        <g-signin-button
-            :params="googleSignInParams"
-            @success="onSignInSuccess"
-            @error="onSignInError">
-            Sign in with Google
-        </g-signin-button>
       </q-dialog>
     </div>
 </template>
