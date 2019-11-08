@@ -16,7 +16,7 @@
         <q-item-section>
           <q-item-label>{{task.name}}</q-item-label>
         </q-item-section>
-      </q-item>
+      </q-item> 
     </q-list>
 </q-page>
 </q-page-container>
