@@ -6,6 +6,22 @@
       </q-btn>
       <q-toolbar-title>Profile</q-toolbar-title>
     </q-toolbar>
+    <div class="rpw q-pa-sm bg-primary">
+      <q-input
+        v-model="newTask"
+        @keyup.enter="addTask"
+        class="col"
+        square
+        filled
+        bg-color="white"
+        placeholder="Add Task"
+        dense
+      >
+        <template v-slot:append>
+          <q-btn @click="addTask" round dense flat icon="add" />
+        </template>
+      </q-input>
+    </div>
     <q-list separator bordered>
       <q-item
         v-for="task in tasks"
@@ -44,6 +60,7 @@
 export default {
   data() {
     return {
+      newTask: "",
       tasks: [
         {
           id: 1,
@@ -68,6 +85,15 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    addTask() {
+      this.tasks.push({
+        name: this.newTask,
+        completed: false
+      });
+      this.newTask = "";
+    }
   }
 };
 </script>
