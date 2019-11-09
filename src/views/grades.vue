@@ -1,5 +1,6 @@
 <template>
   <div>
+      <h1>grades</h1>
     <q-card v-for="course in courses" class="gradeCard" :key="course.name">
       <q-card-section>
 
