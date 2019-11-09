@@ -25,6 +25,7 @@
         <q-list bordered separator>
           <q-item
             class="courseItem"
+            v-ripple
             clickable
             v-for="course in courses"
             :key="course.name"

@@ -1,17 +1,35 @@
 <template>
-  <div @click="assignmentPrompt" class="dayContainer shadow-2">
-    <div class="dayContents">
-      <div class="day">{{month}} {{ day }}</div>t
-      <br />t
-      <br />t
-      <br />t
-      <br />t
-    </div>
+  <div class="dayContents">
+    <div class="day">{{month}} {{ day }}</div>
+    <q-item class="task" v-ripple clickable v-for="task in tasks" :key="task.name">
+      <q-item-section>{{ task.name }}</q-item-section>
+    </q-item>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      tasks: [
+        {
+          name: "Study for Calc",
+          howLong: "20 Minutes",
+          testDay: "Assingment on 4th"
+        },
+        {
+          name: "Study for Chem",
+          howLong: "15 Minutes",
+          testDay: "Assingment on 6th"
+        },
+        {
+          name: "Study for Biology",
+          howLong: "15 Minutes",
+          testDay: "Assingment on 5th"
+        }
+      ]
+    };
+  },
   props: ["date"],
   computed: {
     day() {
@@ -21,50 +39,26 @@ export default {
       return this.date.toLocaleString("default", { month: "short" });
     }
   },
-  methods: {
-    assignmentPrompt() {
-      if (!this.$store.state.zoomedOut) {
-        this.$store.commit("popoutActive", true);
-      }
-    }
-  },
-  tasks: [
-    {
-      name: "Study for Calc",
-      howLong: "20 Minutes",
-      testDay: "Assingment on 4th"
-    },
-    {
-      name: "Study for Chem",
-      howLong: "15 Minutes",
-      testDay: "Assingment on 6th"
-    },
-    {
-      name: "Study for Biology",
-      howLong: "15 Minutes",
-      testDay: "Assingment on 5th"
-    }
-  ]
+  methods: {}
 };
 </script>
 
 <style lang="scss" scoped>
-.dayContainer {
-  padding-bottom: calc(var(--dayWidth) / 1.61803398875 * 2);
-  position: relative;
-  margin: 1.5px;
-}
 .dayContents {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  background: #d8d8d8;
+  margin: 3% 2.5% 3% 2.5%;
+  padding: 2%;
+  min-height: 18em;
+  border-radius: 2px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.46);
 }
 .day {
+  width: 100%;
   text-align: right;
-  margin-right: 3%;
-  margin-top: 2%;
-  font-size: 1.5rem;
+  color: white;
+  font-size: 200%;
+}
+.task {
+  color: white;
 }
 </style>
