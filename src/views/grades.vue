@@ -29,7 +29,13 @@
             <q-item-section>{{ course.name }}</q-item-section>
             <q-item-section side>
               <q-item-label caption>
-                <q-avatar size="md" rounded color="primary" text-color="white">{{ course.grade }}</q-avatar>
+                <q-item-label class="row justify-end" caption>
+                  <q-avatar size="md" rounded color="primary" text-color="white">{{ course.grade }}</q-avatar>
+                </q-item-label>
+                <q-item-label
+                  class="row justify-end"
+                  caption
+                >{{ `${(+course.percentage * 100).toFixed(1)}%` }}</q-item-label>
               </q-item-label>
             </q-item-section>
           </q-item>
@@ -58,18 +64,20 @@
               {{ assignment.name }}
             </q-item-section>
             <q-item-section side>
-              <q-item-label caption>
-                <q-chip
-                  dense
-                  color="accent"
-                  text-color="white"
-                  v-if="!!assignment.grade"
-                >{{ formatScore(assignment) }}</q-chip>
-
-                <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
-                  <strong>{{ assignment.percentage }}</strong>
-                </q-tooltip>
-              </q-item-label>
+              <div class="column">
+                <q-item-label class="row justify-end" caption>
+                  <q-chip
+                    dense
+                    color="accent"
+                    text-color="white"
+                    v-if="!!assignment.grade"
+                  >{{ formatScore(assignment) }}</q-chip>
+                </q-item-label>
+                <q-item-label
+                  class="row justify-end"
+                  caption
+                >{{ `${+assignment.percentage * 100}%` }}</q-item-label>
+              </div>
             </q-item-section>
           </q-item>
         </q-list>
@@ -119,8 +127,6 @@ export default {
   data() {
     return {
       courses: [],
-      dialog: false,
-      courses: [],
       fetchedGrades: false,
       notLoggedIn: true,
       username: "",
@@ -134,7 +140,19 @@ export default {
     assignmentList() {
       if (this.courses.length == 0) return [];
       let course = this.courses.find(c => c.id == this.$route.params.id);
-      return course.assignments;
+      return course.assignments.sort((a, b) => {
+        return new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime();
+      });
+    }
+  },
+  beforeMount() {
+    let creds = this.$store.getters.getLogin;
+    this.password = creds.password;
+    this.username = creds.username;
+    if (this.password.length > 0 && this.username.length > 0) {
+      this.notLoggedIn = false;
+      this.courses = this.$store.getters.courseCache;
+      this.fetchedGrades = true;
     }
   },
   methods: {
@@ -154,11 +172,16 @@ export default {
               return +a.expression[0] - +b.expression[0];
             });
             this.fetchedGrades = true;
+            this.$store.commit("cacheCourses", this.courses);
           });
         })
         .catch(console.error);
     },
     signIn() {
+      this.$store.commit("login", {
+        username: this.username,
+        password: this.password
+      });
       this.notLoggedIn = false;
       this.fetchGrades(this.username, this.password);
     },

@@ -1,10 +1,11 @@
 <template>
   <div class="navbar">
-    <q-toolbar class="fixed-bottom bg-primary text-white padding">
+    <q-toolbar class="text-white padding" :class="computeClasses" ref="navToolbar">
       <q-tabs
         ref="navTabs"
         v-model="tab"
-        class="bg-primary text-white shadow-2 full-width"
+        class="text-white full-width"
+        :class="computeBackground"
         :inline-label="!$q.screen.sm"
       >
         <q-route-tab
@@ -44,6 +45,46 @@ export default {
       tab: null
     };
   },
+  computed: {
+    computeClasses() {
+      if (!!this.$q.screen.md || !!this.$q.screen.sm) {
+        return {
+          "nav-mobile": true,
+          "bg-primary": true
+        };
+      } else {
+        return {
+          "nav-desktop": true,
+          "bg-secondary": true
+        };
+      }
+    },
+    computeBackground() {
+      if (!!this.$q.screen.md || !!this.$q.screen.sm) {
+        return {
+          "bg-primary": true
+        };
+      } else {
+        return {
+          "bg-secondary": true
+        };
+      }
+    },
+    spacerHeight() {
+      if (
+        (!!this.$q.screen.md || !!this.$q.screen.sm) &&
+        this.$refs.navToolbar
+      ) {
+        return {
+          "padding-bottom": getComputedStyle(this.$refs.navToolbar.$el).height
+        };
+      } else {
+        return {
+          "padding-bottom": "0px"
+        };
+      }
+    }
+  },
   methods: {
     t(e) {
       console.log(e);
@@ -56,22 +97,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .navbar::after {
-//   content: "";
-//   // padding-bottom: 100%;
-// }
+.nav-desktop {
+  max-width: 50%;
+  top: 0;
+  left: 50%;
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: 10;
+}
 
-.container {
-  width: 33%;
-  max-height: 100%;
-  display: flex;
-  justify-content: center;
-  vertical-align: middle;
-  & img {
-    max-height: 100%;
-    height: 90%;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
+.nav-mobile {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  flex-shrink: 0;
 }
 </style>

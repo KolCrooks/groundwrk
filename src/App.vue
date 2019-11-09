@@ -1,7 +1,7 @@
 <template>
   <div id="q-app">
     <LoginHandle></LoginHandle>
-    <router-view />
+    <router-view class="route" />
     <NavBar></NavBar>
   </div>
 </template>
@@ -21,12 +21,18 @@ body {
   height: 100vh;
 }
 
-#app {
-  height: 100%;
+#q-app {
+  min-height: 100%;
   width: 100%;
   position: absolute;
   top: 0;
   left: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.route {
+  flex-grow: 1;
 }
 
 .text-strikethrough {
