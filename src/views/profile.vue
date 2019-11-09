@@ -1,37 +1,36 @@
 <template>
-<q-layout>
-<q-page-container>
-<q-page class="q-pa-sm">
+  <div>
+    <q-toolbar class="toolbar bg-secondary text-white">
+      <q-btn flat round dense>
+        <q-icon name="r_menu" />
+      </q-btn>
+      <q-toolbar-title>Profile</q-toolbar-title>
+    </q-toolbar>
     <div class="rpw q-pa-sm bg-primary">
-            <q-input 
-            v-model="newTask"
-            @keyup.enter="addTask"
-            class="col"
-            square
-            filled
-            bg-color ="white"
-            placeholder="Add Task" 
-            dense>
+      <q-input
+        v-model="newTask"
+        @keyup.enter="addTask"
+        class="col"
+        square
+        filled
+        bg-color="white"
+        placeholder="Add Task"
+        dense
+      >
         <template v-slot:append>
-          <q-btn 
-            @click="addTask"
-            round
-            dense 
-            flat 
-            icon="add" />
+          <q-btn @click="addTask" round dense flat icon="add" />
         </template>
       </q-input>
     </div>
-    <q-list 
-    separator
-    bordered>
-      <q-item 
-      v-for="(task, index) in tasks"
-      :key="task.id"
-      @click="task.completed = !task.completed"
-      :class="!task.completed ? 'bg-red-1' : 'bg-green-1'"
-      clickable
-      v-ripple>
+    <q-list separator bordered>
+      <q-item
+        v-for="task in tasks"
+        :key="task.id"
+        @click="task.completed = !task.completed"
+        :class="!task.completed ? 'bg-red-1' : 'bg-green-1'"
+        clickable
+        v-ripple
+      >
         <q-item-section side top>
           <q-checkbox 
           v-model="task.completed"
@@ -123,8 +122,19 @@ export default{
       })
            
         }
+      ]
+    };
+  },
+  methods: {
+    addTask() {
+      this.tasks.push({
+        name: this.newTask,
+        completed: false
+      });
+      this.newTask = "";
     }
-}
+  }
+};
 </script>
 
 <style>

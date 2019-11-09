@@ -1,64 +1,46 @@
 <template>
   <div class="loginHandle">
-    <q-dialog
-      v-model="dialog"
-      persistent
-      :maximized="maximizedToggle"
-      transition-show="slide-up"
-      transition-hide="slide-down"
-      @show="attachSignin"
-    >
-      <div class="dialogContent bg-white">
-        <div id="signinButton">test</div>
-      </div>
+    <q-dialog v-model="dialog" persistent @show="attachSignin">
+      <q-card>
+        <q-card-section class="row items-center">
+          <div id="signinButton"></div>
+        </q-card-section>
+      </q-card>
     </q-dialog>
   </div>
 </template>
 
 <script>
+import "../script/platform.js";
+
 export default {
   data() {
     return {
-      dialog: false,
-      maximizedToggle: true,
-      client_id:
-        "356679115182-60a1e40t5i2neo5l2472l0sbtre8ju9v.apps.googleusercontent.com",
-      auth2: null
+      dialog: true,
+      maximizedToggle: true
     };
   },
   methods: {
     onSuccess(googleUser) {
-      console.log("Logged in as: " + googleUser.getBasicProfile().getName());
+      this.dialog = false;
+      console.log("LoggedIn");
+      this.$store.commit("googleLogin", googleUser);
     },
     onFailure(error) {
       console.log(error);
     },
     attachSignin() {
-      el = document.getElementById("signinButton");
-      this.auth2.attachClickHandler(
-        el,
-        {},
-        function(googleUser) {
-          document.getElementById("name").innerText =
-            "Signed in: " + googleUser.getBasicProfile().getName();
-        },
-        function(error) {
-          alert(JSON.stringify(error, undefined, 2));
-        }
-      );
-    }
-  },
-  mounted() {
-    let _this = this;
-    gapi.load("auth2", function() {
-      // Retrieve the singleton for the GoogleAuth library and set up the client.
-      _this.auth2 = gapi.auth2.init({
-        client_id: _this.client_id,
-        cookiepolicy: "single_host_origin"
-        // Request scopes in addition to 'profile' and 'email'
-        //scope: 'additional_scope'
+      let _this = this;
+      gapi.signin2.render("signinButton", {
+        scope: "profile email",
+        width: 240,
+        height: 50,
+        longtitle: true,
+        theme: "dark",
+        onsuccess: _this.onSuccess,
+        onfailure: _this.onFailure
       });
-    });
+    }
   },
   name: "LoginHandle"
 };

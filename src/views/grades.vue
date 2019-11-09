@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{'dimmed':notLoggedIn}">
     <q-toolbar class="toolbar bg-secondary text-white">
       <q-btn flat round dense to="/grades">
         <q-icon v-if="!inCV" name="r_menu" />
@@ -35,7 +35,7 @@
                 <q-item-label
                   class="row justify-end"
                   caption
-                >{{ `${(+course.percentage * 100).toFixed(1)}%` }}</q-item-label>
+                >{{ `${(+course.percentage * 100).toFixed(0)}%` }}</q-item-label>
               </q-item-label>
             </q-item-section>
           </q-item>
@@ -76,7 +76,7 @@
                 <q-item-label
                   class="row justify-end"
                   caption
-                >{{ `${+assignment.percentage * 100}%` }}</q-item-label>
+                >{{ `${(+assignment.percentage * 100).toFixed(1)}%` }}</q-item-label>
               </div>
             </q-item-section>
           </q-item>
@@ -85,7 +85,7 @@
     </div>
 
     <!-- Login Popup -->
-    <q-dialog v-model="notLoggedIn" persistent>
+    <q-dialog v-model="notLoggedIn" seamless>
       <q-card style="width: 700px; max-width: 80vw;">
         <q-card-section>
           <div class="text-h6">Powerschool Login</div>
