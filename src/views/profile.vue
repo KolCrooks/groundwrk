@@ -2,6 +2,26 @@
 <q-layout>
 <q-page-container>
 <q-page class="q-pa-sm">
+    <div class="rpw q-pa-sm bg-primary">
+            <q-input 
+            v-model="newTask"
+            @keyup.enter="addTask"
+            class="col"
+            square
+            filled
+            bg-color ="white"
+            placeholder="Add Task" 
+            dense>
+        <template v-slot:append>
+          <q-btn 
+            @click="addTask"
+            round
+            dense 
+            flat 
+            icon="add" />
+        </template>
+      </q-input>
+    </div>
     <q-list 
     separator
     bordered>
@@ -56,6 +76,7 @@
 export default{
     data(){
         return{
+            newTask:'',
             tasks: [
             {
             id: 1,
@@ -79,6 +100,15 @@ export default{
             studyTime: '15 minutes'
             }
             ]
+        }
+    },
+    methods: {
+        addTask(){
+            this.tasks.push({
+                name: this.newTask,
+                completed: false
+            })
+            this.newTask=''
         }
     }
 }
