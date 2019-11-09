@@ -11,7 +11,7 @@
         v-model="newTask"
         @keyup.enter="addTask"
         class="col"
-        square
+        color="blue"
         filled
         bg-color="white"
         placeholder="Add Task"
@@ -27,7 +27,7 @@
         v-for="task in tasks"
         :key="task.id"
         @click="task.completed = !task.completed"
-        :class="!task.completed ? 'bg-red-1' : 'bg-green-1'"
+        :class="!task.completed ? 'bg-white-1' : 'bg-green-1'"
         clickable
         v-ripple
       >
@@ -88,11 +88,14 @@ export default {
   },
   methods: {
     addTask() {
-      this.tasks.push({
-        name: this.newTask,
-        completed: false
-      });
-      this.newTask = "";
+      if (this.newTask.replace(/\s/gm, "") != "") {
+        this.tasks.push({
+          name: this.newTask,
+          completed: false
+        });
+        this.newTask = "";
+      } else {
+      }
     }
   }
 };
