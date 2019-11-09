@@ -8,7 +8,7 @@
       <q-toolbar-title>Grades</q-toolbar-title>
       <div v-if="(gpaW != '') && (gpa != '')">
         <q-chip color="accent" text-color="white">GPAW: {{ gpaW }}</q-chip>
-        <q-chip color="accent" text-color="white">GPA: {{ gpa }}</q-chip>
+        <q-chip color="accent" text-color="white">GPAU: {{ gpa }}</q-chip>
       </div>
     </q-toolbar>
     <q-spinner
@@ -245,10 +245,6 @@ export default {
           }
         }
       }
-      console.log({
-        totalW,
-        totalU
-      });
       this.gpaW = (totalW / this.courses.length).toFixed(2);
       this.gpa = (totalU / this.courses.length).toFixed(2);
     }
