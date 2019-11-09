@@ -158,6 +158,8 @@ export default {
     if (this.password.length > 0 && this.username.length > 0) {
       this.notLoggedIn = false;
       this.courses = this.$store.getters.courseCache;
+      this.gpaCalc();
+      this.gpaWCalc();
       this.fetchedGrades = true;
     }
   },

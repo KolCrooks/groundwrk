@@ -1,13 +1,11 @@
 <template>
   <div @click="assignmentPrompt" class="dayContainer shadow-2">
     <div class="dayContents">
-      <div class="day">{{month}}, {{ day }}</div>t
+      <div class="day">{{month}} {{ day }}</div>t
       <br />t
       <br />t
       <br />t
       <br />t
-      <br />t
-      <br />
     </div>
   </div>
 </template>
