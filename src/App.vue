@@ -1,8 +1,8 @@
 <template>
   <div id="q-app">
-    <LoginHandle></LoginHandle>
     <router-view class="route" />
     <NavBar></NavBar>
+    <LoginHandle></LoginHandle>
   </div>
 </template>
 
