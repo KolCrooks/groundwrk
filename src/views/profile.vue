@@ -24,7 +24,7 @@
     </div>
     <q-list separator bordered>
       <q-item
-        v-for="task in tasks"
+        v-for="(task, index) in tasks"
         :key="task.id"
         @click="task.completed = !task.completed"
         :class="!task.completed ? 'bg-white-1' : 'bg-green-1'"
@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import { timeout } from 'q';
 export default {
   data() {
     return {
@@ -106,23 +107,19 @@ export default {
           title: "Confirm",
           message: "Delete? There is no going back.",
           cancel: true,
-          persistent: true
+          persistent: true,
         })
         .onOk(() => {
           this.tasks.splice(index, 1);
-          this.$q.notify("Task Deleted");
+          this.$q.notify({
+              message: 'Task Deleted',
+              textColor: 'white',
+              timeout: 750,
+              icon: 'delete_forever'
+          })
         });
     }
   },
-  methods: {
-    addTask() {
-      this.tasks.push({
-        name: this.newTask,
-        completed: false
-      });
-      this.newTask = "";
-    }
-  }
 };
 </script>
 
