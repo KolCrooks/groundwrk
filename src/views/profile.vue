@@ -26,19 +26,33 @@
     separator
     bordered>
       <q-item 
-      v-for="task in tasks"
+      v-for="(task, index) in tasks"
       :key="task.id"
       @click="task.completed = !task.completed"
       :class="!task.completed ? 'bg-red-1' : 'bg-green-1'"
       clickable
       v-ripple>
         <q-item-section side top>
-          <q-checkbox v-model="task.completed" />
+          <q-checkbox 
+          v-model="task.completed"
+          color="primary" />
         </q-item-section>
 
             <q-item-section>
               <q-item-label :class="{'text-strikethrough' : task.completed}">{{task.name}}</q-item-label>
             </q-item-section>
+            <q-item-section
+            v-if="task.completed"
+            side>
+            <q-btn 
+            @click.stop="deleteTask(index)"
+            flat 
+            round
+            dense
+            color="primary" 
+            icon="delete"/>
+            </q-item-section>
+
             <q-item-section side>
               <div class="row">
                 <div class="column justify-center">
@@ -96,6 +110,18 @@ export default{
                 completed: false
             })
             this.newTask=''
+        },
+        deleteTask(index){
+             this.$q.dialog({
+        title: 'Confirm',
+        message: 'Delete? There is no going back.',
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
+           this.tasks.splice(index, 1)
+           this.$q.notify('Task Deleted')
+      })
+           
         }
     }
 }
