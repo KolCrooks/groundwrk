@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="q-app">
     <LoginHandle></LoginHandle>
     <router-view />
     <NavBar></NavBar>
@@ -27,5 +27,9 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.text-strikethrough {
+  text-decoration: line-through;
 }
 </style>
