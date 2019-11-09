@@ -1,7 +1,6 @@
 <template>
   <div class="calWeek">
-    <CalendarDay class="cDay" v-for="d in dates" :date="d" :key="d.toString()">
-    </CalendarDay>
+    <CalendarDay class="cDay" v-for="d in dates" :date="d" :key="d.toString()"></CalendarDay>
   </div>
 </template>
 
@@ -56,6 +55,4 @@ export default {
     }
   }
 }
-
-
 </style>
