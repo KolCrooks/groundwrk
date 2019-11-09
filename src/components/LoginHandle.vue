@@ -16,7 +16,7 @@ import "../script/platform.js";
 export default {
   data() {
     return {
-      dialog: true,
+      dialog: false,
       maximizedToggle: true
     };
   },

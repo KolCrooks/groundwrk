@@ -6,6 +6,10 @@
         <q-icon v-if="inCV" name="r_arrow_back" />
       </q-btn>
       <q-toolbar-title>Grades</q-toolbar-title>
+      <div v-if="(gpaW != '') && (gpa != '')">
+        <q-chip color="accent" text-color="white">GPAW: {{ gpaW }}</q-chip>
+        <q-chip color="accent" text-color="white">GPA: {{ gpa }}</q-chip>
+      </div>
     </q-toolbar>
     <q-spinner
       class="fixed-center"
@@ -130,7 +134,9 @@ export default {
       fetchedGrades: false,
       notLoggedIn: true,
       username: "",
-      password: ""
+      password: "",
+      gpaW: "",
+      gpa: ""
     };
   },
   computed: {
@@ -172,6 +178,8 @@ export default {
               return +a.expression[0] - +b.expression[0];
             });
             this.fetchedGrades = true;
+            this.gpaWCalc();
+            this.gpaCalc();
             this.$store.commit("cacheCourses", this.courses);
           });
         })
@@ -195,6 +203,33 @@ export default {
       return `${(+assignment.score).toFixed(1)} / ${(
         +assignment.score / +assignment.percentage
       ).toFixed(1)}`;
+    },
+    gpaWCalc() {
+      let totalP = 0;
+      for (let c of this.courses) {
+        if (c.name.toLowerCase().startsWith("ap ") && c.percentage > 0.8) {
+          totalP += +c.percentage + 0.1;
+        } else if (
+          c.name.toLowerCase().startsWith("honors ") &&
+          c.percentage > 0.8
+        ) {
+          totalP += +c.percentage + 0.1;
+        } else {
+          totalP += +c.percentage;
+        }
+      }
+      let gpaW = totalP / this.courses.length;
+      this.gpaW = (gpaW * 4).toFixed(2);
+      return (gpaW * 4).toFixed(2);
+    },
+    gpaCalc() {
+      let totalP = 0;
+      for (let c of this.courses) {
+        totalP += c.percentage;
+      }
+      let gpa = totalP / this.courses.length;
+      this.gpa = (gpa * 4).toFixed(2);
+      return (gpa * 4).toFixed(2);
     }
   }
 };
