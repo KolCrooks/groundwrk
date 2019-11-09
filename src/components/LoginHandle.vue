@@ -1,16 +1,11 @@
 <template>
   <div class="loginHandle">
-    <q-dialog
-      v-model="dialog"
-      persistent
-      :maximized="maximizedToggle"
-      transition-show="slide-up"
-      transition-hide="slide-down"
-      @show="attachSignin"
-    >
-      <div class="dialogContent bg-white">
-        <div id="signinButton"></div>
-      </div>
+    <q-dialog v-model="dialog" persistent @show="attachSignin">
+      <q-card>
+        <q-card-section class="row items-center">
+          <div id="signinButton"></div>
+        </q-card-section>
+      </q-card>
     </q-dialog>
   </div>
 </template>
@@ -21,14 +16,15 @@ import "../script/platform.js";
 export default {
   data() {
     return {
-      dialog: false,
-      maximizedToggle: true,
-      auth2: null
+      dialog: true,
+      maximizedToggle: true
     };
   },
   methods: {
     onSuccess(googleUser) {
-      console.log("Logged in as: " + googleUser.getBasicProfile().getName());
+      this.dialog = false;
+      console.log("LoggedIn");
+      this.$store.commit("googleLogin", googleUser);
     },
     onFailure(error) {
       console.log(error);

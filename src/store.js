@@ -9,7 +9,8 @@ export default new Vuex.Store({
       username: "",
       password: ""
     },
-    courses: []
+    courses: [],
+    googleUser: null
   },
   mutations: {
     login(state, newLogin) {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
     },
     cacheCourses(state, pushedState) {
       state.courses = pushedState;
+    },
+    googleLogin(state, googleU) {
+      state.googleUser = googleU;
     }
   },
   getters: {
@@ -25,6 +29,9 @@ export default new Vuex.Store({
     },
     courseCache(state) {
       return state.courses;
+    },
+    googleUser(state) {
+      return state.googleUser;
     }
   }
 });

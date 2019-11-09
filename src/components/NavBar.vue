@@ -1,24 +1,22 @@
 <template>
-  <div class="navbar">
-    <q-toolbar class="text-white padding" :class="computeClasses" ref="navToolbar">
-      <q-tabs
-        ref="navTabs"
-        v-model="tab"
-        class="text-white full-width"
-        :class="computeBackground"
-        :inline-label="!$q.screen.sm"
-      >
-        <q-route-tab
-          v-for="page in pages"
-          :key="page.name"
-          :name="page.name"
-          :icon="page.icon"
-          :label="page.name"
-          :to="page.route"
-        />
-      </q-tabs>
-    </q-toolbar>
-  </div>
+  <q-toolbar class="text-white padding" :class="computeClasses" ref="navToolbar">
+    <q-tabs
+      ref="navTabs"
+      v-model="tab"
+      class="text-white full-width"
+      :class="computeBackground"
+      :inline-label="!$q.screen.sm"
+    >
+      <q-route-tab
+        v-for="page in pages"
+        :key="page.name"
+        :name="page.name"
+        :icon="page.icon"
+        :label="page.name"
+        :to="page.route"
+      />
+    </q-tabs>
+  </q-toolbar>
 </template>
 
 <script>
@@ -110,6 +108,5 @@ export default {
   position: sticky;
   bottom: 0;
   z-index: 10;
-  flex-shrink: 0;
 }
 </style>

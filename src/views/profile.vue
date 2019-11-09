@@ -32,12 +32,16 @@
         v-ripple
       >
         <q-item-section side top>
-          <q-checkbox v-model="task.completed" />
+          <q-checkbox v-model="task.completed" color="primary" />
         </q-item-section>
 
         <q-item-section>
           <q-item-label :class="{'text-strikethrough' : task.completed}">{{task.name}}</q-item-label>
         </q-item-section>
+        <q-item-section v-if="task.completed" side>
+          <q-btn @click.stop="deleteTask(index)" flat round dense color="primary" icon="delete" />
+        </q-item-section>
+
         <q-item-section side>
           <div class="row">
             <div class="column justify-center">
@@ -94,8 +98,29 @@ export default {
           completed: false
         });
         this.newTask = "";
-      } else {
       }
+    },
+    deleteTask(index) {
+      this.$q
+        .dialog({
+          title: "Confirm",
+          message: "Delete? There is no going back.",
+          cancel: true,
+          persistent: true
+        })
+        .onOk(() => {
+          this.tasks.splice(index, 1);
+          this.$q.notify("Task Deleted");
+        });
+    }
+  },
+  methods: {
+    addTask() {
+      this.tasks.push({
+        name: this.newTask,
+        completed: false
+      });
+      this.newTask = "";
     }
   }
 };
