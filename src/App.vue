@@ -8,7 +8,7 @@
 
 <script>
 import NavBar from "@/components/NavBar.vue";
-import LoginHandle from "@/components/LoginHandle.vue"
+import LoginHandle from "@/components/LoginHandle.vue";
 
 export default {
   components: { NavBar, LoginHandle }
@@ -19,5 +19,13 @@ export default {
 body {
   margin: 0;
   height: 100vh;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>
