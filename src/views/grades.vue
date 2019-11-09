@@ -166,12 +166,22 @@ export default {
         }
       })
         .then(g => {
+          if (("" + g.status).startsWith("40")) {
+            this.$q.notify({
+              color: "red-5",
+              textColor: "white",
+              icon: "warning",
+              message: "Error Logging In"
+            });
+            return;
+          }
           g.json().then(body => {
             console.log(body);
             this.courses = body.sort((a, b) => {
               return +a.expression[0] - +b.expression[0];
             });
             this.fetchedGrades = true;
+            this.notLoggedIn = false;
             this.$store.commit("cacheCourses", this.courses);
           });
         })
@@ -182,7 +192,6 @@ export default {
         username: this.username,
         password: this.password
       });
-      this.notLoggedIn = false;
       this.fetchGrades(this.username, this.password);
     },
     onRight({ reset }) {

@@ -27,12 +27,18 @@ export default {
       this.$store.commit("googleLogin", googleUser);
     },
     onFailure(error) {
+      this.$q.notify({
+        color: "red-5",
+        textColor: "white",
+        icon: "warning",
+        message: "Error Logging In"
+      });
       console.log(error);
     },
     attachSignin() {
       let _this = this;
       gapi.signin2.render("signinButton", {
-        scope: "profile email",
+        // scope: "profile email",
         width: 240,
         height: 50,
         longtitle: true,
