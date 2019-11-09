@@ -2,24 +2,97 @@ const fs = require("fs");
 const https = require("https");
 const express = require("express");
 const history = require("connect-history-api-fallback");
+const Powerschool = require("powerschool-api");
+
+const root = `${__dirname}/dist/`;
+const apiList = {};
 
 var app = express();
-app.use(history());
 
-app.get("/", function(req, res) {
-  res.send("hello world");
+
+app.get("/api/grades/", async (req,res) => {
+  try {
+    const url = req.header('url');
+    if(!apiList[url]){
+      let tempAPI = new Powerschool(url);
+      let api = await tempAPI.setup();
+      apiList[url] = api;
+    }
+    let grades = await getGrades(apiList[url], req.header('username'), req.header('password'));
+    res.status(200).send(grades); 
+  }catch(e){ 
+    res.status(400).send(e);
+    console.log(e)
+  }
 });
 
-https
-  .createServer(
-    {
-      key: fs.readFileSync("server.key"),
-      cert: fs.readFileSync("server.cert")
-    },
+app.use(history());
+
+app.use(express.static(root))
+
+
+// https
+//   .createServer(
+//     {
+//       key: fs.readFileSync("server.key"),
+//       cert: fs.readFileSync("server.cert")
+//     },
     app
-  )
+  // )
   .listen(process.env.PORT || 3000, function() {
     console.log(
       "Example app listening on port 3000! Go to https://localhost:3000/"
     );
   });
+
+/**
+ * 
+ * @param {import('powerschool-api')} api 
+ * @param {String} usr 
+ * @param {String} pass 
+ */
+async function getGrades(api, usr, pass){
+  let user = await api.login(usr,pass);
+  let info = await user.getStudentInfo();
+  let gradeMap = {};
+  let courses = [];
+
+  for(let grade of info.finalGrades){
+    gradeMap[grade.courseID] = {
+        grade: grade.grade,
+        percentage: grade.percentage
+    };
+  }
+  for(let course of info.courses){
+    let finalGrade = course.getFinalGrade();
+    let assignments = course.getAssignments();
+    if(!finalGrade) continue;
+    let assign = [];
+    for(let a of assignments){
+      let grade = a.getScore() || {
+        letterGrade: null,
+        percentage: null,
+      };
+      console.log(grade.letterGrade, grade.score, grade.percentage, a.name)
+      let temp = {
+        weight: a.weight,
+        name: a.name,
+        dueDate: a.dueDate,
+        grade: grade.letterGrade,
+        percentage: grade.percentage,
+      }
+      assign.push(temp);
+    }
+    let temp = {
+      id: course.id,
+      name: course.title,
+      expression: course.expression,
+      roomNumber: course.roomName,
+      grade: gradeMap[course.id].grade,
+      percentage: gradeMap[course.id].percentage,
+      assignments: assign
+    }
+    courses.push(temp);
+  }
+  return courses;  
+}
