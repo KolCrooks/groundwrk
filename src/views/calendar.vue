@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="dim">
     <q-toolbar class="toolbar bg-secondary text-white">
       <q-btn flat round dense>
         <q-icon name="r_menu" />
@@ -8,14 +8,23 @@
       <q-btn flat round dense icon="search" />
     </q-toolbar>
     <CalendarWeek :date="new Date()"></CalendarWeek>
+    <LoginHandle></LoginHandle>
   </div>
 </template>
 
 <script>
 import CalendarWeek from "@/components/CalendarWeek.vue";
+import LoginHandle from "@/components/LoginHandle.vue";
 
 export default {
-  components: { CalendarWeek }
+  components: { CalendarWeek, LoginHandle },
+  computed: {
+    dim() {
+      return {
+        dimmed: !this.$store.getters.googleUser
+      };
+    }
+  }
 };
 </script>
 

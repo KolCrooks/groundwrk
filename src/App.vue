@@ -2,16 +2,14 @@
   <div id="q-app">
     <router-view class="route" />
     <NavBar></NavBar>
-    <LoginHandle></LoginHandle>
   </div>
 </template>
 
 <script>
 import NavBar from "@/components/NavBar.vue";
-import LoginHandle from "@/components/LoginHandle.vue";
 
 export default {
-  components: { NavBar, LoginHandle }
+  components: { NavBar }
 };
 </script>
 

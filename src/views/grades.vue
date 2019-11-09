@@ -159,7 +159,6 @@ export default {
       this.notLoggedIn = false;
       this.courses = this.$store.getters.courseCache;
       this.gpaCalc();
-      this.gpaWCalc();
       this.fetchedGrades = true;
     }
   },
@@ -190,7 +189,6 @@ export default {
             });
             this.fetchedGrades = true;
             this.notLoggedIn = false;
-            this.gpaWCalc();
             this.gpaCalc();
             this.$store.commit("cacheCourses", this.courses);
           });
@@ -215,32 +213,44 @@ export default {
         +assignment.score / +assignment.percentage
       ).toFixed(1)}`;
     },
-    gpaWCalc() {
-      let totalP = 0;
+    gpaCalc() {
+      let ranges = [
+        [0.93, 4.0, 5.0],
+        [0.9, 3.7, 4.7],
+        [0.87, 3.3, 4.3],
+        [0.83, 3.0, 4.0],
+        [0.8, 2.7, 3.7],
+        [0.77, 2.3, 2.3],
+        [0.73, 2.0, 2.0],
+        [0.7, 1.7, 1.7],
+        [0.67, 1.3, 1.3],
+        [0.63, 1.0, 1.0],
+        [0.6, 0.7, 0.7],
+        [-1, 0, 0]
+      ];
+      let totalW = 0;
+      let totalU = 0;
       for (let c of this.courses) {
-        if (c.name.toLowerCase().startsWith("ap ") && c.percentage > 0.8) {
-          totalP += +c.percentage + 0.1;
-        } else if (
-          c.name.toLowerCase().startsWith("honors ") &&
-          c.percentage > 0.8
-        ) {
-          totalP += +c.percentage + 0.1;
-        } else {
-          totalP += +c.percentage;
+        for (let r of ranges) {
+          if (r[0] <= +c.percentage) {
+            if (
+              c.name.toLowerCase().startsWith("ap ") ||
+              c.name.toLowerCase().startsWith("honors ")
+            )
+              totalW += r[2];
+            else totalW += r[1];
+            totalU += r[1];
+            console.log(r[0], c.percentage, r[1], r[2]);
+            break;
+          }
         }
       }
-      let gpaW = totalP / this.courses.length;
-      this.gpaW = (gpaW * 4).toFixed(2);
-      return (gpaW * 4).toFixed(2);
-    },
-    gpaCalc() {
-      let totalP = 0;
-      for (let c of this.courses) {
-        totalP += c.percentage;
-      }
-      let gpa = totalP / this.courses.length;
-      this.gpa = (gpa * 4).toFixed(2);
-      return (gpa * 4).toFixed(2);
+      console.log({
+        totalW,
+        totalU
+      });
+      this.gpaW = (totalW / this.courses.length).toFixed(2);
+      this.gpa = (totalU / this.courses.length).toFixed(2);
     }
   }
 };
