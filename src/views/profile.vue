@@ -24,7 +24,7 @@
     </div>
     <q-list separator bordered>
       <q-item
-        v-for="task in tasks"
+        v-for="(task, index) in tasks"
         :key="task.id"
         @click="task.completed = !task.completed"
         :class="!task.completed ? 'bg-white-1' : 'bg-green-1'"
@@ -114,7 +114,7 @@ export default {
           this.$q.notify({
               message: 'Task Deleted',
               textColor: 'white',
-              timeout: 1000,
+              timeout: 750,
               icon: 'delete_forever'
           })
         });
