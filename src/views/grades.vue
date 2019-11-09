@@ -221,17 +221,19 @@ export default {
       for (let c of this.courses) {
         if (c.name.toLowerCase().startsWith("ap ") && c.percentage > 0.8) {
           totalP += +c.percentage + 0.1;
-          totalCredit += +c.percentage + 1;
+          totalCredit += +c.percentage.percentToDcredit() + 1;
         } else if (
           c.name.toLowerCase().startsWith("honors ") &&c.percentage > 0.8) {
           totalP += +c.percentage + 0.1;
+          totalCredit += +c.percentage.percentToDcredit() + 1;
         } else {
           totalP += +c.percentage;
+          totalCredit += +c.percentage.percentToDcredit();
         }
       }
-      let gpaW = totalP / this.courses.length;
-      this.gpaW = (gpaW * 4).toFixed(2);
-      return (gpaW * 4).toFixed(2);
+      let gpaW = totalCredit / this.courses.length;
+      this.gpaW = gpaW.toFixed(2);
+      return gpaW.toFixed(2);
     },
     gpaCalc() {
       let totalP = 0;
@@ -246,45 +248,59 @@ export default {
         let credit = 0;
         if(c.percentage < .60){
             credit = 0;
+            return credit;
         }
         else if(c.percentage < .63){
             credit = .7;
+            return credit;
         }
         else if(c.percentage < .67){
             credit = 1;
+            return credit;
         }
         else if(c.percentage <.70){
             credit = 1.3;
+            return credit;
         }
         else if(c.percentage < .73){
             credit = 1.7;
+            return credit;
         }
         else if(c.percentage < .77){
             credit = 2.0;
+            return credit;
         }
         else if(c.percentage < .80){
             credit = 2.3;
+            return credit;
         }
         else if(c.percentage < .80){
             credit = 2.3;
+            return credit;
         }
         else if(c.percentage < .83){
             credit = 2.7;
+            return credit;
         }
         else if(c.percentage < .87){
             credit = 3.0;
+            return credit;
         }
         else if(c.percentage < .90){
             credit = 3.3;
+            return credit;
         }
         else if(c.percentage < .93){
             credit = 3.7;
+            return credit;
         }
         else if(c.percentage < .98){
             credit = 4.0;
+            return credit;
         }
         else{
             credit = 4.0
+            return credit;
         }
     }
   }
