@@ -8,7 +8,7 @@
       <q-toolbar-title>Grades</q-toolbar-title>
       <div v-if="(gpaW != '') && (gpa != '')">
         <q-chip color="accent" text-color="white">GPAW: {{ gpaW }}</q-chip>
-        <q-chip color="accent" text-color="white">GPA: {{ gpa }}</q-chip>
+        <q-chip color="accent" text-color="white">GPAU: {{ gpa }}</q-chip>
       </div>
     </q-toolbar>
     <q-spinner
@@ -217,13 +217,13 @@ export default {
     },
     gpaWCalc() {
       let totalP = 0;
+      let toalCredit =0 
       for (let c of this.courses) {
         if (c.name.toLowerCase().startsWith("ap ") && c.percentage > 0.8) {
           totalP += +c.percentage + 0.1;
+          totalCredit += +c.percentage + 1;
         } else if (
-          c.name.toLowerCase().startsWith("honors ") &&
-          c.percentage > 0.8
-        ) {
+          c.name.toLowerCase().startsWith("honors ") &&c.percentage > 0.8) {
           totalP += +c.percentage + 0.1;
         } else {
           totalP += +c.percentage;
@@ -241,6 +241,51 @@ export default {
       let gpa = totalP / this.courses.length;
       this.gpa = (gpa * 4).toFixed(2);
       return (gpa * 4).toFixed(2);
+    },
+    percentToCredit(){
+        let credit = 0;
+        if(c.percentage < .60){
+            credit = 0;
+        }
+        else if(c.percentage < .63){
+            credit = .7;
+        }
+        else if(c.percentage < .67){
+            credit = 1;
+        }
+        else if(c.percentage <.70){
+            credit = 1.3;
+        }
+        else if(c.percentage < .73){
+            credit = 1.7;
+        }
+        else if(c.percentage < .77){
+            credit = 2.0;
+        }
+        else if(c.percentage < .80){
+            credit = 2.3;
+        }
+        else if(c.percentage < .80){
+            credit = 2.3;
+        }
+        else if(c.percentage < .83){
+            credit = 2.7;
+        }
+        else if(c.percentage < .87){
+            credit = 3.0;
+        }
+        else if(c.percentage < .90){
+            credit = 3.3;
+        }
+        else if(c.percentage < .93){
+            credit = 3.7;
+        }
+        else if(c.percentage < .98){
+            credit = 4.0;
+        }
+        else{
+            credit = 4.0
+        }
     }
   }
 };
