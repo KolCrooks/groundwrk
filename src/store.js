@@ -10,7 +10,29 @@ export default new Vuex.Store({
       password: ""
     },
     courses: [],
-    googleUser: null
+    googleUser: null,
+    tasks:[{
+      id: 1,
+      name: "Study for Calc",
+      completed: false,
+      dueDate: "2019/11/6",
+      studyTime: "30 minutes"
+    },
+    {
+      id: 2,
+      name: "Study for Chem",
+      completed: false,
+      dueDate: "2019/11/7",
+      studyTime: "20 minutes"
+    },
+    {
+      id: 3,
+      name: "Study for Biology",
+      completed: false,
+      dueDate: "2019/11/9",
+      studyTime: "15 minutes"
+    }
+    ]
   },
   mutations: {
     login(state, newLogin) {
@@ -32,6 +54,9 @@ export default new Vuex.Store({
     },
     googleUser(state) {
       return state.googleUser;
+    },
+    tasks: (state) => {
+      return state.tasks;
     }
   }
 });

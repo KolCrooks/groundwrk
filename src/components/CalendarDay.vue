@@ -45,7 +45,7 @@ export default {
 
 <style lang="scss" scoped>
 .dayContents {
-  background: #d8d8d8;
+  background: #04365a63;
   margin: 3% 2.5% 3% 2.5%;
   padding: 2%;
   min-height: 18em;
@@ -55,10 +55,10 @@ export default {
 .day {
   width: 100%;
   text-align: right;
-  color: white;
+  color: 'primary';
   font-size: 200%;
 }
 .task {
-  color: white;
+  color: 'secondary';
 }
 </style>
