@@ -67,7 +67,7 @@ export default {
         let foundAssignments = [];
         for (let t of txt) {
           let h = /([0-9]*)(\/)([0-9]*)/g.exec(t);
-          if (h && h[0] < 12 && h[2] < 33)
+          if (h && h[1] < 12 && h[3] < 33)
             foundAssignments.push({
               date: h[0],
               text: t
