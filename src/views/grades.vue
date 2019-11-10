@@ -11,13 +11,6 @@
         <q-chip color="accent" text-color="white">GPAU: {{ gpa }}</q-chip>
       </div>
     </q-toolbar>
-    <q-spinner
-      class="fixed-center"
-      color="primary"
-      size="5%"
-      :thickness="10"
-      v-if="!fetchedGrades"
-    />
 
     <!-- Courses -->
     <div class="scroll" v-if="!inCV">
@@ -122,6 +115,7 @@
             </q-form>
           </div>
         </q-card-section>
+        <q-spinner class="fixed-center" color="primary" size="5%" :thickness="10" v-if="fetching" />
       </q-card>
     </q-dialog>
   </div>
@@ -134,6 +128,7 @@ export default {
       courses: [],
       fetchedGrades: false,
       notLoggedIn: true,
+      fetching: false,
       username: "",
       password: "",
       gpaW: "",
@@ -166,8 +161,10 @@ export default {
   methods: {
     fetchGrades(username, password) {
       let host = "http://localhost:3000";
-      if (window.location.hostname == "groundwrk.app")
+      if (window.location.hostname == "www.groundwrk.app")
         host = window.location.origin;
+
+      this.fetching = true;
       fetch(`${host}/api/grades`, {
         method: "GET",
         headers: {
@@ -177,6 +174,7 @@ export default {
         }
       })
         .then(g => {
+          this.fetching = false;
           if (("" + g.status).startsWith("40")) {
             this.$q.notify({
               color: "red-5",
