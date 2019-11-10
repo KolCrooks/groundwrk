@@ -3,6 +3,7 @@ const https = require("https");
 const express = require("express");
 const history = require("connect-history-api-fallback");
 const Powerschool = require("powerschool-api");
+const forceSecure = require("force-secure-express");
 const cors = require("cors");
 
 const root = `${__dirname}/dist/`;
@@ -11,7 +12,7 @@ const apiList = {};
 var app = express();
 
 app.use(cors());
-
+app.use(forceSecure(["groundwrk.app"]));
 app.get("/api/grades/", async (req, res) => {
   try {
     const url = req.header("url");
