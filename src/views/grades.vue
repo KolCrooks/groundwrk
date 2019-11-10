@@ -165,7 +165,7 @@ export default {
   },
   methods: {
     fetchGrades(username, password) {
-      fetch("http://localhost:3000/api/grades", {
+      fetch(`${window.location.origin}/api/grades`, {
         method: "GET",
         headers: {
           username,
