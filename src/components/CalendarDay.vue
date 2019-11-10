@@ -45,7 +45,7 @@ export default {
 
 <style lang="scss" scoped>
 .dayContents {
-  background: #2d2926;
+  background: #ffffff;
   margin: 3% 2.5% 3% 2.5%;
   padding: 2%;
   min-height: 18em;
