@@ -165,7 +165,10 @@ export default {
   },
   methods: {
     fetchGrades(username, password) {
-      fetch(`${window.location.origin}/api/grades`, {
+      let host = "http://localhost:3000";
+      if (window.location.hostname == "groundwrk.app")
+        host = window.location.origin;
+      fetch(`${host}/api/grades`, {
         method: "GET",
         headers: {
           username,
