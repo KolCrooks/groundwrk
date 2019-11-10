@@ -4,6 +4,7 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  namespaced: true,
   state: {
     login: {
       username: "",
@@ -11,28 +12,26 @@ export default new Vuex.Store({
     },
     courses: [],
     googleUser: null,
-    tasks:[{
-      id: 1,
+    tasks:{
+      'ID1': {
       name: "Study for Calc",
       completed: false,
       dueDate: "2019/11/6",
       studyTime: "30 minutes"
     },
-    {
-      id: 2,
+      'ID2': {
       name: "Study for Chem",
       completed: false,
       dueDate: "2019/11/7",
       studyTime: "20 minutes"
     },
-    {
-      id: 3,
+      'ID3': {
       name: "Study for Biology",
       completed: false,
       dueDate: "2019/11/9",
       studyTime: "15 minutes"
     }
-    ]
+  }
   },
   mutations: {
     login(state, newLogin) {
@@ -45,6 +44,11 @@ export default new Vuex.Store({
       state.googleUser = googleU;
     }
   },
+  actions:{
+    updateTask(){
+      console.log('updateTask action')
+    }
+  },
   getters: {
     getLogin(state) {
       return state.login;
@@ -55,8 +59,9 @@ export default new Vuex.Store({
     googleUser(state) {
       return state.googleUser;
     },
-    tasks: (state) => {
+    tasks(state) {
       return state.tasks;
     }
-  }
+  },
+  modules:{}
 });
