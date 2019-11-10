@@ -30,29 +30,5 @@ export default {
 
 <style lang="scss" scoped>
 .calWeek {
-  display: flex;
-  scroll-snap-align: start;
-  width: 100%;
-  margin: 0 auto;
-}
-
-@media only screen and (max-width: 815px) {
-  .calWeek {
-    flex-direction: column;
-    & .cDay {
-      --dayWidth: calc(100%-3px);
-      width: var(--dayWidth);
-    }
-  }
-}
-
-@media only screen and (min-width: 815px) {
-  .calWeek {
-    flex-direction: row;
-    & .cDay {
-      --dayWidth: calc(100% / 7 - 3px);
-      width: var(--dayWidth);
-    }
-  }
 }
 </style>
