@@ -1,9 +1,11 @@
 <template>
   <div class="loginHandle">
-    <q-dialog v-model="dialog" persistent @show="attachSignin">
-      <q-card>
+    <q-dialog v-model="dialog" @show="dialogOpen" seamless>
+      <q-card v-if="authLoaded">
         <q-card-section class="row items-center">
-          <div id="signinButton"></div>
+          <div id="gSignInWrapper" @click="handleLogin">
+            <img :src="require('../assets/Google_SignInButton.png')" class="signInImage" />
+          </div>
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -11,19 +13,24 @@
 </template>
 
 <script>
-import "../script/platform.js";
+import "@/script/gapi.js";
 
 export default {
   data() {
     return {
-      dialog: false,
-      maximizedToggle: true
+      dialog: true,
+      maximizedToggle: true,
+      authLoaded: false
     };
   },
   methods: {
-    onSuccess(googleUser) {
+    onSuccess(signedIn) {
+      console.log(signedIn, "hi");
+      if (!signedIn) return;
+      let googleUser = gapi.auth2.getAuthInstance();
       this.dialog = false;
       console.log("LoggedIn");
+      console.log(googleUser);
       this.$store.commit("googleLogin", googleUser);
     },
     onFailure(error) {
@@ -35,19 +42,47 @@ export default {
       });
       console.log(error);
     },
-    attachSignin() {
+    dialogOpen() {
       let _this = this;
-      gapi.signin2.render("signinButton", {
-        // scope: "profile email",
-        width: 240,
-        height: 50,
-        longtitle: true,
-        theme: "dark",
-        onsuccess: _this.onSuccess,
-        onfailure: _this.onFailure
+      gapi.load("client:auth2", () => {
+        // Retrieve the singleton for the GoogleAuth library and set up the client.
+        gapi.client
+          .init({
+            apiKey: "AIzaSyDXtlY0qIL3pYu8P3zTMxB3Zf5W3XAP9sg",
+            clientId:
+              "356679115182-60a1e40t5i2neo5l2472l0sbtre8ju9v.apps.googleusercontent.com",
+            discoveryDocs: [
+              "https://classroom.googleapis.com/$discovery/rest?version=v1"
+            ],
+            scope:
+              "https://www.googleapis.com/auth/classroom.courses.readonly " +
+              "https://www.googleapis.com/auth/classroom.announcements.readonly " +
+              "https://www.googleapis.com/auth/classroom.coursework.me"
+          })
+          .then(() => {
+            this.authLoaded = true;
+            if (gapi.auth2.getAuthInstance().isSignedIn.get())
+              this.onSuccess(true);
+            console.log("ready");
+            gapi.auth2
+              .getAuthInstance()
+              .isSignedIn.listen(a => this.onSuccess(a));
+          });
       });
+    },
+    handleLogin() {
+      gapi.auth2.getAuthInstance().signIn();
     }
   },
   name: "LoginHandle"
 };
 </script>
+
+<style lang="scss" scoped>
+.signInImage {
+  height: 4rem;
+  &:hover {
+    cursor: pointer;
+  }
+}
+</style>
