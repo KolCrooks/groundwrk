@@ -25,13 +25,11 @@ export default {
   },
   methods: {
     onSuccess(signedIn) {
-      console.log(signedIn, "hi");
       if (!signedIn) return;
       let googleUser = gapi.auth2.getAuthInstance();
       this.dialog = false;
-      console.log("LoggedIn");
-      console.log(googleUser);
       this.$store.commit("googleLogin", googleUser);
+      this.$emit("loggedIn");
     },
     onFailure(error) {
       this.$q.notify({
@@ -63,7 +61,6 @@ export default {
             this.authLoaded = true;
             if (gapi.auth2.getAuthInstance().isSignedIn.get())
               this.onSuccess(true);
-            console.log("ready");
             gapi.auth2
               .getAuthInstance()
               .isSignedIn.listen(a => this.onSuccess(a));
