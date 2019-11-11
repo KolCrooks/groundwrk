@@ -16,8 +16,9 @@ export default {
 <style lang="scss">
 body {
   margin: 0;
-  height: 100vh;
-  overscroll-behavior: none;
+  height: 100%;
+  position: fixed;
+  overflow: hidden;
 }
 
 #q-app {
@@ -28,6 +29,7 @@ body {
   left: 0;
   display: flex;
   flex-direction: column;
+  overscroll-behavior-y: none;
 }
 
 .route {
