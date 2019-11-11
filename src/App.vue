@@ -17,6 +17,7 @@ export default {
 body {
   margin: 0;
   height: 100vh;
+  overscroll-behavior: none;
 }
 
 #q-app {
