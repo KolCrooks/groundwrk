@@ -238,7 +238,8 @@ export default {
           if (r[0] <= +c.percentage) {
             if (
               c.name.toLowerCase().startsWith("ap ") ||
-              c.name.toLowerCase().startsWith("honors ")
+              c.name.toLowerCase().startsWith("honors ") ||
+              c.name.toLowerCase().startsWith("h ")
             )
               totalW += r[2];
             else totalW += r[1];
