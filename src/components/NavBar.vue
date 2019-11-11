@@ -14,6 +14,7 @@
         :icon="page.icon"
         :label="page.name"
         :to="page.route"
+        :disable="page.disable"
       />
     </q-tabs>
   </q-toolbar>
@@ -27,17 +28,20 @@ export default {
         {
           route: "/calendar",
           name: "Calendar",
-          icon: "calendar_today"
-        },
-        {
-          route: "/grades",
-          name: "Grades",
-          icon: "spellcheck"
+          icon: "calendar_today",
+          disable: true
         },
         {
           route: "/",
+          name: "Grades",
+          icon: "spellcheck",
+          disable: false
+        },
+        {
+          route: "/profile",
           name: "Profile",
-          icon: "account_circle"
+          icon: "account_circle",
+          disable: true
         }
       ],
       tab: null
