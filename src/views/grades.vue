@@ -1,7 +1,7 @@
 <template>
   <div :class="{'dimmed':notLoggedIn}">
     <q-toolbar class="toolbar bg-secondary text-white">
-      <q-btn flat round dense to="/grades">
+      <q-btn flat round dense to="/">
         <q-icon v-if="!inCV" name="r_menu" />
         <q-icon v-if="inCV" name="r_arrow_back" />
       </q-btn>
@@ -22,7 +22,7 @@
             clickable
             v-for="course in courses"
             :key="course.name"
-            :to="`/grades/${course.id}`"
+            :to="`/${course.id}`"
           >
             <q-item-section>{{ course.name }}</q-item-section>
             <q-item-section side>
