@@ -9,14 +9,16 @@ import Quasar from "quasar";
 Vue.use(Quasar, {
   config: {
     brand: {
-      primary: "#00171f",
-      secondary: "#003459",
-      accent: "#00a8e8",
+      primary: '#d4af37',
+      secondary: '#1d1d1d',
+      accent: '#cecccf',
 
-      positive: "#21BA45",
-      negative: "#C10015",
-      info: "#007ea7",
-      warning: "#F2C037"
+      dark: '#1d1d1d',
+
+      positive: '#21BA45',
+      negative: '#C10015',
+      info: '#31CCEC',
+      warning: '#F2C037'
     }
   }
 });
