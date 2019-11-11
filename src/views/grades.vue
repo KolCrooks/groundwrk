@@ -159,7 +159,7 @@ export default {
     }
   },
   methods: {
-    fetchGrades(username, password) {
+    fetchGrades(username, password, done) {
       let host = "http://localhost:3000";
       if (window.location.hostname == "www.groundwrk.app")
         host = window.location.origin;
@@ -193,6 +193,7 @@ export default {
             this.notLoggedIn = false;
             this.gpaCalc();
             this.$store.commit("cacheCourses", this.courses);
+            if (done) done();
           });
         })
         .catch(console.error);
@@ -207,8 +208,8 @@ export default {
     onRight({ reset }) {
       reset();
     },
-    refresh() {
-      this.fetchGrades(this.username, this.password);
+    refresh(done) {
+      this.fetchGrades(this.username, this.password, done);
     },
     formatScore(assignment) {
       return `${(+assignment.score).toFixed(1)} / ${(
