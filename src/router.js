@@ -10,7 +10,7 @@ export default new Router({
   mode: "history",
   routes: [
     {
-      path: "/",
+      path: "/profile",
       name: "profile",
       component: profile
     },
@@ -20,7 +20,7 @@ export default new Router({
       component: calendar
     },
     {
-      path: "/grades/:id?",
+      path: "/:id?",
       name: "grades",
       component: grades
     }

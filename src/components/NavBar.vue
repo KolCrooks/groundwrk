@@ -29,7 +29,7 @@ export default {
           route: "/calendar",
           name: "Calendar",
           icon: "calendar_today",
-          disable: true
+          disable: false
         },
         {
           route: "/",
@@ -41,7 +41,7 @@ export default {
           route: "/profile",
           name: "Profile",
           icon: "account_circle",
-          disable: true
+          disable: false
         }
       ],
       tab: null
