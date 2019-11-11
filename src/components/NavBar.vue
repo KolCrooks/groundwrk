@@ -3,7 +3,7 @@
     <q-tabs
       ref="navTabs"
       v-model="tab"
-      class="text-white full-width"
+      class="text-white full-width full-height"
       :class="computeBackground"
       :inline-label="!$q.screen.sm"
     >
