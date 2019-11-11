@@ -19,6 +19,7 @@ body {
   height: 100%;
   position: fixed;
   overflow: hidden;
+  overscroll-behavior-y: none;
 }
 
 #q-app {
@@ -30,6 +31,7 @@ body {
   display: flex;
   flex-direction: column;
   overscroll-behavior-y: none;
+  overflow: auto;
 }
 
 .route {
