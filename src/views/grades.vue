@@ -168,7 +168,7 @@ export default {
         host = window.location.origin;
 
       this.fetching = true;
-      fetch(`${'https://www.groundwrk.app'}/api/grades`, {
+      fetch(`${host}/api/grades`, {
         method: "GET",
         headers: {
           username,

@@ -83,7 +83,6 @@ async function getGrades(api, usr, pass) {
     if (!finalGrade) continue;
     let assign = [];
     for (let a of assignments) {
-      a.getTerm()
       let grade = a.getScore() || {
         letterGrade: null,
         percentage: null,
