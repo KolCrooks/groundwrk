@@ -196,6 +196,7 @@ export default {
             this.fetchedGrades = true;
             this.notLoggedIn = false;
             this.gpaCalc();
+            this.exactPercentage();
             this.$store.commit("cacheCourses", this.courses);
             if (done) done();
           });
@@ -249,7 +250,6 @@ export default {
               totalW += r[2];
             else totalW += r[1];
             totalU += r[1];
-            console.log(r[0], c.percentage, r[1], r[2]);
             break;
           }
         }
@@ -258,15 +258,22 @@ export default {
       this.gpa = (totalU / this.courses.length).toFixed(2);
     },
     exactPercentage(){
+      
       let total = 0;
       let recieved = 0
       let exactPercent = 0;
-      for(let c of this.course){
+      for(let c of this.courses){
+        total =0;
+        recieved = 0;
+        exactPercent = 0;
         for(let a of c.assignments){
+          if(+a.score>0 && a.percentage>0){
           recieved += +a.score*a.weight
           total+= (+a.score*a.weight)/a.percentage
+          }
         }
-        exactPercent = recieved/total
+        exactPercent = +recieved/total
+        console.log(exactPercent, c)
       }
 
     }
