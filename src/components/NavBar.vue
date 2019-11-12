@@ -1,5 +1,5 @@
 <template>
-  <q-toolbar class="text-white padding" :class="computeClasses" ref="navToolbar">
+  <q-toolbar class="text-white" :class="computeClasses" ref="navToolbar">
     <q-tabs
       ref="navTabs"
       v-model="tab"
@@ -52,23 +52,23 @@ export default {
       if (!!this.$q.screen.md || !!this.$q.screen.sm) {
         return {
           "nav-mobile": true,
-          "bg-primary": true
+          "bg-secondary": true
         };
       } else {
         return {
           "nav-desktop": true,
-          "bg-secondary": true
+          "bg-primary": true
         };
       }
     },
     computeBackground() {
       if (!!this.$q.screen.md || !!this.$q.screen.sm) {
         return {
-          "bg-primary": true
+          "bg-secondary": true
         };
       } else {
         return {
-          "bg-secondary": true
+          "bg-primary": true
         };
       }
     },
@@ -106,11 +106,13 @@ export default {
   position: fixed;
   transform: translateX(-50%);
   z-index: 10;
+  padding: 0px;
 }
 
 .nav-mobile {
   position: sticky;
   bottom: 0;
   z-index: 10;
+  padding: 0px;
 }
 </style>
