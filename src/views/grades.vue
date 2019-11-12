@@ -33,7 +33,11 @@
                 <q-item-label
                   class="row justify-end"
                   caption
-                >{{ `${(+course.percentage * 100).toFixed(0)}%` }}</q-item-label>
+                >
+                <div>Running Percentage: {{`${(+course.exactPercent * 100).toFixed(2)}%` }}</div>
+                <br>
+                <div>Quarter Percentage: {{`${(+course.percentage * 100).toFixed(0)}%` }}</div>
+                </q-item-label>
               </q-item-label>
             </q-item-section>
           </q-item>
@@ -260,7 +264,7 @@ export default {
     exactPercentage(){
       
       let total = 0;
-      let recieved = 0
+      let recieved = 0;
       let exactPercent = 0;
       for(let c of this.courses){
         total =0;
@@ -272,7 +276,7 @@ export default {
           total+= (+a.score*a.weight)/a.percentage
           }
         }
-        exactPercent = +recieved/total
+        c.exactPercent = +recieved/total
         console.log(exactPercent, c)
       }
 
