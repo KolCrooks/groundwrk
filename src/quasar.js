@@ -9,9 +9,9 @@ import Quasar from "quasar";
 Vue.use(Quasar, {
   config: {
     brand: {
-      primary: '#d4af37',
-      secondary: '#1d1d1d',
-      accent: '#cecccf',
+      primary: '#DD5B1F',
+      secondary: '#282828',
+      accent: '#AF2D1C',
 
       dark: '#1d1d1d',
 

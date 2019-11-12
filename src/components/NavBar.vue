@@ -52,23 +52,23 @@ export default {
       if (!!this.$q.screen.md || !!this.$q.screen.sm) {
         return {
           "nav-mobile": true,
-          "bg-primary": true
+          "bg-secondary": true
         };
       } else {
         return {
           "nav-desktop": true,
-          "bg-secondary": true
+          "bg-primary": true
         };
       }
     },
     computeBackground() {
       if (!!this.$q.screen.md || !!this.$q.screen.sm) {
         return {
-          "bg-primary": true
+          "bg-secondary": true
         };
       } else {
         return {
-          "bg-secondary": true
+          "bg-primary": true
         };
       }
     },

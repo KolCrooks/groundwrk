@@ -60,6 +60,16 @@ async function getGrades(api, usr, pass) {
   let info = await user.getStudentInfo();
   let gradeMap = {};
   let courses = [];
+  let terms = [];
+
+  for(let t of info.terms){
+    terms.push({
+      title: t.title,
+      abbreviatedTitle: t.abbreviatedTitle,
+      startDate: t.startDate,
+      endDate: t.endDate,
+    });
+  }
 
   for (let grade of info.finalGrades) {
     gradeMap[grade.courseID] = {
@@ -73,14 +83,26 @@ async function getGrades(api, usr, pass) {
     if (!finalGrade) continue;
     let assign = [];
     for (let a of assignments) {
+      a.getTerm()
       let grade = a.getScore() || {
         letterGrade: null,
         percentage: null,
-        score: null
+        score: null,
+        collected: null,
+        exempt: null,
+        late: null,
+        missing: null,
       };
+
+      let catagory = a.getCategory() || {
+        name: null,
+      }
+
       let temp = {
         weight: a.weight,
         name: a.name,
+        published: a.publishScores,
+        catagory: catagory.name,
         dueDate: a.dueDate,
         grade: grade.letterGrade,
         score: grade.score,
@@ -99,5 +121,5 @@ async function getGrades(api, usr, pass) {
     };
     courses.push(temp);
   }
-  return courses;
+  return {courses, terms};
 }

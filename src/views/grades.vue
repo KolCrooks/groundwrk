@@ -1,6 +1,6 @@
 <template>
   <div :class="{'dimmed':notLoggedIn}">
-    <q-toolbar class="toolbar bg-secondary text-white">
+    <q-toolbar class="toolbar bg-primary text-white">
       <q-btn flat round dense to="/">
         <q-icon v-if="!inCV" name="r_menu" />
         <q-icon v-if="inCV" name="r_arrow_back" />
@@ -28,7 +28,7 @@
             <q-item-section side>
               <q-item-label caption>
                 <q-item-label class="row justify-end" caption>
-                  <q-avatar size="md" rounded color="primary" text-color="white">{{ course.grade }}</q-avatar>
+                  <q-avatar size="md" rounded color="accent" text-color="white">{{ course.grade }}</q-avatar>
                 </q-item-label>
                 <q-item-label
                   class="row justify-end"
@@ -96,6 +96,7 @@
                 filled
                 v-model="username"
                 label="Username"
+                :value="placeholder"
                 hint="Enter Your Powerschool Username"
                 lazy-rules
                 :rules="[ val => val && val.length > 0 || 'Powerschool Username']"
@@ -126,13 +127,15 @@ export default {
   data() {
     return {
       courses: [],
+      terms: [],
       fetchedGrades: false,
       notLoggedIn: true,
       fetching: false,
       username: "",
       password: "",
       gpaW: "",
-      gpa: ""
+      gpa: "",
+      placeholder: "",
     };
   },
   computed: {
@@ -186,9 +189,10 @@ export default {
           }
           g.json().then(body => {
             console.log(body);
-            this.courses = body.sort((a, b) => {
+            this.courses = body.courses.sort((a, b) => {
               return +a.expression[0] - +b.expression[0];
             });
+            this.terms = body.terms;
             this.fetchedGrades = true;
             this.notLoggedIn = false;
             this.gpaCalc();
@@ -199,6 +203,7 @@ export default {
         .catch(console.error);
     },
     signIn() {
+      localStorage.setItem('username', this.username);
       this.$store.commit("login", {
         username: this.username,
         password: this.password
@@ -252,6 +257,10 @@ export default {
       this.gpaW = (totalW / this.courses.length).toFixed(2);
       this.gpa = (totalU / this.courses.length).toFixed(2);
     }
+  },
+  beforeMount(){
+    let usrname = localStorage.getItem('username');
+    this.username = usrname;
   }
 };
 </script>
