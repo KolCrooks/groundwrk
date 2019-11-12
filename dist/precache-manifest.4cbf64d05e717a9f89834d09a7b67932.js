@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/clip2.ico"
   },
   {
-    "revision": "35f65725508fdc8b0ff1",
-    "url": "/css/app.ab055963.css"
+    "revision": "d7c84a99d87bb78b62e4",
+    "url": "/css/app.4065072e.css"
   },
   {
     "revision": "e9355a4ee7f4c6c69d18",
@@ -80,12 +80,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/Google_SignInButton.56f00e35.png"
   },
   {
-    "revision": "9905796bb410ad1f6eeccc0d8b4fc4fd",
+    "revision": "9a640c9aefe6f3382d865dd106faf0a2",
     "url": "/index.html"
   },
   {
-    "revision": "35f65725508fdc8b0ff1",
-    "url": "/js/app.2a3cb10f.js"
+    "revision": "d7c84a99d87bb78b62e4",
+    "url": "/js/app.348e36a2.js"
   },
   {
     "revision": "e9355a4ee7f4c6c69d18",
