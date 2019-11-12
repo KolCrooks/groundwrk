@@ -33,7 +33,7 @@
                 <q-item-label
                   class="row justify-end"
                   caption
-                >{{ `${(+course.percentage * 100).toFixed(0)}%` }}</q-item-label>
+                >{{ `${(+course.percentage * 100).toFixed(0)}%` }} Exact: {{ exactPercent }}</q-item-label>
               </q-item-label>
             </q-item-section>
           </q-item>
@@ -251,6 +251,19 @@ export default {
       }
       this.gpaW = (totalW / this.courses.length).toFixed(2);
       this.gpa = (totalU / this.courses.length).toFixed(2);
+    },
+    exactPercentage(){
+      let total = 0;
+      let recieved = 0
+      let exactPercent = 0;
+      for(let c of this.course){
+        for(let a of c.assignments){
+          recieved += +a.score*a.weight
+          total+= (+a.score*a.weight)/a.percentage
+        }
+        exactPercent = recieved/total
+      }
+
     }
   }
 };
