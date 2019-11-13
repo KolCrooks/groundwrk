@@ -99,7 +99,6 @@
                 filled
                 v-model="username"
                 label="Username"
-                :value="placeholder"
                 hint="Enter Your Powerschool Username"
                 lazy-rules
                 :rules="[ val => val && val.length > 0 || 'Powerschool Username']"
@@ -155,8 +154,8 @@ export default {
   beforeMount() {
     let creds = this.$store.getters.getLogin;
     this.password = creds.password;
-    this.username = creds.username;
-    if (this.password.length > 0 && this.username.length > 0) {
+    if (this.password.length > 0) {
+      this.username = creds.username;
       this.notLoggedIn = false;
       this.courses = this.$store.getters.courseCache;
       this.gpaCalc();
@@ -170,7 +169,7 @@ export default {
         host = window.location.origin;
 
       this.fetching = true;
-      fetch(`${'https://www.groundwrk.app'}/api/grades`, {
+      fetch(`${host}/api/grades`, {
         method: "GET",
         headers: {
           username,
@@ -282,7 +281,7 @@ export default {
       }
     }
   },
-  beforeMount() {
+  created() {
     let usrname = localStorage.getItem("username");
     this.username = usrname;
   }
