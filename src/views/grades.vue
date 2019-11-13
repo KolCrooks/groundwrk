@@ -25,15 +25,18 @@
             :to="`/${course.id}`"
           >
             <q-item-section>{{ course.name }}</q-item-section>
-            <q-item-section side>
+            <q-item-section side v-for="grade of course.grade" :key="grade.term">
               <q-item-label caption>
                 <q-item-label class="row justify-end" caption>
-                  <q-avatar size="md" rounded color="accent" text-color="white">{{ course.grade }}</q-avatar>
+                  <div class="padding relative-position">
+                    <q-avatar size="md" rounded color="accent" text-color="white">{{ grade.grade }}</q-avatar>
+                    <q-badge color="red" floating class="badgeMod">{{ grade.term }}</q-badge>
+                  </div>
                 </q-item-label>
                 <q-item-label
                   class="row justify-end"
                   caption
-                >{{ `${(+course.percentage * 100).toFixed(0)}%` }}</q-item-label>
+                >{{ `${(+grade.percentage * 100).toFixed(0)}%` }}</q-item-label>
               </q-item-label>
             </q-item-section>
           </q-item>
@@ -134,8 +137,7 @@ export default {
       username: "",
       password: "",
       gpaW: "",
-      gpa: "",
-      placeholder: "",
+      gpa: ""
     };
   },
   computed: {
@@ -204,7 +206,7 @@ export default {
         .catch(console.error);
     },
     signIn() {
-      localStorage.setItem('username', this.username);
+      localStorage.setItem("username", this.username);
       this.$store.commit("login", {
         username: this.username,
         password: this.password
@@ -239,47 +241,49 @@ export default {
       ];
       let totalW = 0;
       let totalU = 0;
+      let totalClass = 0;
       for (let c of this.courses) {
-        for (let r of ranges) {
-          if (r[0] <= +c.percentage) {
-            if (
-              c.name.toLowerCase().startsWith("ap ") ||
-              c.name.toLowerCase().startsWith("honors ") ||
-              c.name.toLowerCase().startsWith("h ")
-            )
-              totalW += r[2];
-            else totalW += r[1];
-            totalU += r[1];
-            break;
+        for (let term of c.grade) {
+          totalClass++;
+          for (let r of ranges) {
+            if (r[0] <= +term.percentage) {
+              if (
+                c.name.toLowerCase().startsWith("ap ") ||
+                c.name.toLowerCase().startsWith("honors ") ||
+                c.name.toLowerCase().startsWith("h ")
+              )
+                totalW += r[2];
+              else totalW += r[1];
+              totalU += r[1];
+              break;
+            }
           }
         }
       }
-      this.gpaW = (totalW / this.courses.length).toFixed(2);
-      this.gpa = (totalU / this.courses.length).toFixed(2);
+      this.gpaW = (totalW / totalClass).toFixed(2);
+      this.gpa = (totalU / totalClass).toFixed(2);
     },
-    exactPercentage(){
-      
+    exactPercentage() {
       let total = 0;
-      let recieved = 0
+      let recieved = 0;
       let exactPercent = 0;
-      for(let c of this.courses){
-        total =0;
+      for (let c of this.courses) {
+        total = 0;
         recieved = 0;
         exactPercent = 0;
-        for(let a of c.assignments){
-          if(+a.score>0 && a.percentage>0){
-          recieved += +a.score*a.weight
-          total+= (+a.score*a.weight)/a.percentage
+        for (let a of c.assignments) {
+          if (+a.score > 0 && a.percentage > 0) {
+            recieved += +a.score * a.weight;
+            total += (+a.score * a.weight) / a.percentage;
           }
         }
-        exactPercent = +recieved/total
-        console.log(exactPercent, c)
+        exactPercent = +recieved / total;
+        console.log(exactPercent, c);
       }
-
     }
   },
-  beforeMount(){
-    let usrname = localStorage.getItem('username');
+  beforeMount() {
+    let usrname = localStorage.getItem("username");
     this.username = usrname;
   }
 };
@@ -316,5 +320,9 @@ export default {
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+.badgeMod {
+  right: -14px;
 }
 </style>
