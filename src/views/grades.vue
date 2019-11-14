@@ -35,8 +35,7 @@
                   caption
                 >
                 <div>Running Percentage: {{`${(+course.exactPercent * 100).toFixed(2)}%` }}</div>
-                <br>
-                <div>Quarter Percentage: {{`${(+course.percentage * 100).toFixed(0)}%` }}</div>
+                <div>Q1: {{`${(+course.percentage * 100).toFixed(0)}%` }}</div>
                 </q-item-label>
               </q-item-label>
             </q-item-section>
