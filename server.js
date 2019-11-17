@@ -62,24 +62,29 @@ async function getGrades(api, usr, pass) {
   let courses = [];
   let terms = [];
 
-  for(let t of info.terms){
+  for (let t of info.terms) {
     terms.push({
       title: t.title,
       abbreviatedTitle: t.abbreviatedTitle,
       startDate: t.startDate,
-      endDate: t.endDate,
+      endDate: t.endDate
     });
   }
 
   for (let grade of info.finalGrades) {
-    gradeMap[grade.courseID] = {
+    if (!gradeMap[grade.courseID]) gradeMap[grade.courseID] = [];
+
+    gradeMap[grade.courseID].push({
       grade: grade.grade,
-      percentage: grade.percentage
-    };
+      percentage: grade.percentage,
+      term: grade.getReportingTerm().title
+    });
   }
+
   for (let course of info.courses) {
     let finalGrade = course.getFinalGrade();
     let assignments = course.getAssignments();
+
     if (!finalGrade) continue;
     let assign = [];
     for (let a of assignments) {
@@ -90,12 +95,12 @@ async function getGrades(api, usr, pass) {
         collected: null,
         exempt: null,
         late: null,
-        missing: null,
+        missing: null
       };
 
       let catagory = a.getCategory() || {
-        name: null,
-      }
+        name: null
+      };
 
       let temp = {
         weight: a.weight,
@@ -109,16 +114,18 @@ async function getGrades(api, usr, pass) {
       };
       assign.push(temp);
     }
+    let sortedGrades = gradeMap[course.id].sort((a, b) => {
+      return a.term < b.term ? -1 : a.term > b.term ? 1 : 0;
+    });
     let temp = {
       id: course.id,
       name: course.title,
       expression: course.expression,
       roomNumber: course.roomName,
-      grade: gradeMap[course.id].grade,
-      percentage: gradeMap[course.id].percentage,
+      grade: sortedGrades,
       assignments: assign
     };
     courses.push(temp);
   }
-  return {courses, terms};
+  return { courses };
 }

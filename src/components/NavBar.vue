@@ -1,23 +1,26 @@
 <template>
-  <q-toolbar class="text-white" :class="computeClasses" ref="navToolbar">
-    <q-tabs
-      ref="navTabs"
-      v-model="tab"
-      class="text-white full-width full-height"
-      :class="computeBackground"
-      :inline-label="!$q.screen.sm"
-    >
-      <q-route-tab
-        v-for="page in pages"
-        :key="page.name"
-        :name="page.name"
-        :icon="page.icon"
-        :label="page.name"
-        :to="page.route"
-        :disable="page.disable"
-      />
-    </q-tabs>
-  </q-toolbar>
+  <div>
+    <q-toolbar class="text-white" :class="computeClasses" ref="navToolbar">
+      <q-tabs
+        ref="navTabs"
+        v-model="tab"
+        class="text-white full-width full-height"
+        :class="computeBackground"
+        :inline-label="!$q.screen.sm"
+      >
+        <q-route-tab
+          v-for="page in pages"
+          :key="page.name"
+          :name="page.name"
+          :icon="page.icon"
+          :label="page.name"
+          :to="page.route"
+          :disable="page.disable"
+        />
+      </q-tabs>
+    </q-toolbar>
+    <div :style="spacerHeight"></div>
+  </div>
 </template>
 
 <script>
@@ -77,19 +80,16 @@ export default {
         (!!this.$q.screen.md || !!this.$q.screen.sm) &&
         this.$refs.navToolbar
       ) {
+        let height = getComputedStyle(this.$refs.navToolbar.$el).height;
         return {
-          "padding-bottom": getComputedStyle(this.$refs.navToolbar.$el).height
+          "padding-bottom": height,
+          "padding-top": height
         };
       } else {
         return {
           "padding-bottom": "0px"
         };
       }
-    }
-  },
-  methods: {
-    t(e) {
-      console.log(e);
     }
   },
   mounted() {
@@ -110,7 +110,7 @@ export default {
 }
 
 .nav-mobile {
-  position: sticky;
+  position: fixed;
   bottom: 0;
   z-index: 10;
   padding: 0px;
