@@ -42,11 +42,23 @@ export default new Vuex.Store({
     },
     googleLogin(state, googleU) {
       state.googleUser = googleU;
+    },
+    updateTask(state, payload){
+      console.log('payload from mutation', payload);
+      Object.assign(state.tasks[payload.id], payload.updates);
+      
+    },
+    deleteTask(state, id){
+      Vue.delete(state.tasks, id)
+      
     }
   },
   actions:{
-    updateTask(){
-      console.log('updateTask action')
+    updateTask({commit}, payload){
+      commit('updateTask', payload)
+    },
+    deleteTask({commit}, id){
+      commit("deleteTask", id)
     }
   },
   getters: {
