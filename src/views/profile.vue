@@ -67,7 +67,7 @@ export default {
     data(){
         return{
             date: '',
-            showAddTask: true
+            showAddTask: false
         }
     },
   computed:{
