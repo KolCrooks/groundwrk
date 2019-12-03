@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import { uid } from "quasar";
 
 Vue.use(Vuex);
 
@@ -51,6 +52,9 @@ export default new Vuex.Store({
     deleteTask(state, id){
       Vue.delete(state.tasks, id)
       
+    },
+    addTask(state, payload){
+      Vue.set(state.tasks, payload.id, payload.task)
     }
   },
   actions:{
@@ -59,6 +63,15 @@ export default new Vuex.Store({
     },
     deleteTask({commit}, id){
       commit("deleteTask", id)
+    },
+    addTask({ commit }, task){
+      debugger
+      let taskId = uid()
+      let payload = {
+        id: taskId,
+        task: task
+      }
+      commit('addTask', payload)
     }
   },
   getters: {
