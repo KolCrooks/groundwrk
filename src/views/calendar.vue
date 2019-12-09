@@ -9,9 +9,9 @@
     </q-toolbar>
     <!-- <CalendarWeek :date="new Date()"></CalendarWeek> -->
     <div v-for="(v, k) in assignments" :key="k">
-      Day: {{ new Date(+k) }}
+      Day: {{ new Date(+k).toDateString()}}
       <q-card v-for="assign in v" :key="assign.id">
-        <q-card-section>{{JSON.stringify(assign)}}</q-card-section>
+        <q-card-section>{{JSON.stringify(v)}}</q-card-section>
       </q-card>
     </div>
     <LoginHandle @loggedIn="fetchData"></LoginHandle>
