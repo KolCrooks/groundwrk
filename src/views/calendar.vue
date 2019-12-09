@@ -1,13 +1,35 @@
 <template>
   <div :class="dim">
-    <q-toolbar class="toolbar bg-secondary text-white">
+    <q-toolbar class="toolbar bg-primary text-white">
       <q-btn flat round dense>
         <q-icon name="r_menu" />
       </q-btn>
       <q-toolbar-title>Calendar</q-toolbar-title>
       <q-btn flat round dense icon="search" />
     </q-toolbar>
-    <CalendarWeek :date="new Date()"></CalendarWeek>
+    <!-- <CalendarWeek :date="new Date()"></CalendarWeek> -->
+    <div class="work">
+      <div v-for="[k, v] in assignments" :key="k">
+        <q-chip color="primary" text-color="white" icon="event">
+          Day: {{ new Date(+k).toDateString() }}
+        </q-chip>
+
+        <q-card v-for="assign in v" :key="assign.id" class="q-mb-md">
+          <q-card-section class="bg-secondary text-white">{{
+            assign.work.text ? assign.work.text : assign.work
+          }}</q-card-section>
+          <q-card-actions
+            align="left"
+            @click="
+              addTask(+k, assign.work.text ? assign.work.text : assign.work)
+            "
+          >
+            <q-btn flat>Add To Tasks</q-btn>
+          </q-card-actions>
+        </q-card>
+        <q-separator spaced></q-separator>
+      </div>
+    </div>
     <LoginHandle @loggedIn="fetchData"></LoginHandle>
   </div>
 </template>
@@ -113,7 +135,28 @@ export default {
           courseWork: cw
         });
       }
+      let temp = Object.entries(this.assignments);
+      this.assignments = null;
+      temp = temp.sort((a, b) => (a[0] > b[0] ? -1 : a[0] < b[0] ? 1 : 0));
+      this.assignments = temp;
       console.log(this.assignments);
+    },
+    addTask(date, text) {
+      let taskToSubmit = {
+        name: text,
+        dueDate: new Date(date).toDateString(),
+        studyTime: "",
+        completed: false
+      };
+
+      this.$store.dispatch("addTask", taskToSubmit);
+
+      this.$q.notify({
+        message: "Task Added!",
+        icon: "check",
+        position: "center",
+        timeout: 1000
+      });
     }
   }
 };
@@ -124,5 +167,9 @@ export default {
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+.work {
+  padding: 0 10%;
 }
 </style>

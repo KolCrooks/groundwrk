@@ -10,8 +10,8 @@ export default new Router({
   mode: "history",
   routes: [
     {
-      path: "/profile",
-      name: "profile",
+      path: "/tasks",
+      name: "tasks",
       component: profile
     },
     {

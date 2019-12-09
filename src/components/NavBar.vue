@@ -41,8 +41,8 @@ export default {
           disable: false
         },
         {
-          route: "/profile",
-          name: "Profile",
+          route: "/tasks",
+          name: "Tasks",
           icon: "account_circle",
           disable: false
         }
@@ -55,7 +55,7 @@ export default {
       if (!!this.$q.screen.md || !!this.$q.screen.sm) {
         return {
           "nav-mobile": true,
-          "bg-secondary": true
+          "bg-primary": true
         };
       } else {
         return {
@@ -67,7 +67,7 @@ export default {
     computeBackground() {
       if (!!this.$q.screen.md || !!this.$q.screen.sm) {
         return {
-          "bg-secondary": true
+          "bg-primary": true
         };
       } else {
         return {

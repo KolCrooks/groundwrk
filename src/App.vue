@@ -7,6 +7,7 @@
 
 <script>
 import NavBar from "@/components/NavBar.vue";
+import { Dark } from "quasar";
 
 export default {
   components: { NavBar }
