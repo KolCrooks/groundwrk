@@ -65,7 +65,6 @@ export default new Vuex.Store({
       commit("deleteTask", id)
     },
     addTask({ commit }, task){
-      debugger
       let taskId = uid()
       let payload = {
         id: taskId,

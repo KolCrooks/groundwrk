@@ -51,7 +51,7 @@
       />
     </div>
     <q-dialog v-model="showAddTask">
-      <add-task />
+      <add-task @close="showAddTask= false"/>
     </q-dialog>
   </div>
 </template>
@@ -90,7 +90,7 @@ export default {
 <style lang="scss" scoped>
 .addButton {
   position: fixed;
-  bottom: 4rem;
+  bottom: 5rem;
   left: 50%;
   transform: translateX(-50%);
 }
