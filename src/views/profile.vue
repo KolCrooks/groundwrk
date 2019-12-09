@@ -43,9 +43,20 @@
         :task="task"
         :id="key" >
     </task>
-
-      
     </q-list>
+    <div class="absolute-bottom text-center q-mb-lg"> <!-- Need to fix positioning for mobile view -->
+        <q-btn
+        @click = "showAddTask = true"
+      round
+      color="primary"
+      size="24px"
+      icon="add"
+    />
+    </div>
+     <q-dialog v-model="showAddTask">
+         <add-task />
+    </q-dialog>
+
   </div>
 </template>
 
@@ -55,7 +66,8 @@
 export default {
     data(){
         return{
-            date: ''
+            date: '',
+            showAddTask: false
         }
     },
   computed:{
@@ -64,7 +76,8 @@ export default {
      }
   },
   components: {
-      'task' : require('@/components/Tasks/Task.vue').default
+      'task' : require('@/components/Tasks/Task.vue').default,
+      'add-task' : require('@/components/Tasks/Modals/AddTask.vue').default,
   },
   methods: {
     addTask() {
@@ -76,24 +89,6 @@ export default {
         this.newTask = "";
       }
     },
-    deleteTask(index) {
-      this.$q
-        .dialog({
-          title: "Confirm",
-          message: "Delete? There is no going back.",
-          cancel: true,
-          persistent: true,
-        })
-        .onOk(() => {
-          this.tasks.splice(index, 1);
-          this.$q.notify({
-              message: 'Task Deleted',
-              textColor: 'white',
-              timeout: 750,
-              icon: 'delete_forever'
-          })
-        });
-    }
   },
 };
 </script>
