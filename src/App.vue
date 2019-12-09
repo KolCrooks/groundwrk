@@ -12,8 +12,8 @@ import { Dark } from "quasar";
 export default {
   components: { NavBar },
   created() {
-    let k = Dark;
-    this.$q.dark.set(true);
+    // let k = Dark;
+    // this.$q.dark.set(true);
   }
 };
 </script>
