@@ -30,7 +30,7 @@
                 <q-item-label class="row justify-end" caption>
                   <div class="padding relative-position">
                     <q-avatar size="md" rounded color="accent" text-color="white">{{ grade.grade }}</q-avatar>
-                    <q-badge color="red" floating class="badgeMod">{{ grade.term }}</q-badge>
+                    <q-badge color="	blue" floating class="badgeMod">{{ grade.term }}</q-badge>
                   </div>
                 </q-item-label>
                 <q-item-label

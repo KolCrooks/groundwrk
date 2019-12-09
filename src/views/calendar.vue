@@ -30,7 +30,6 @@
         <q-separator spaced></q-separator>
       </div>
     </div>
-
     <LoginHandle @loggedIn="fetchData"></LoginHandle>
   </div>
 </template>

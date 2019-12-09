@@ -10,11 +10,7 @@ import NavBar from "@/components/NavBar.vue";
 import { Dark } from "quasar";
 
 export default {
-  components: { NavBar },
-  created() {
-    // let k = Dark;
-    // this.$q.dark.set(true);
-  }
+  components: { NavBar }
 };
 </script>
 

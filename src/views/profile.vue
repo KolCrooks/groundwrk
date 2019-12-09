@@ -40,7 +40,7 @@
       <task v-for="(task, key) in tasks" :key="key" :task="task" :id="key">
       </task>
     </q-list>
-    <div class="absolute-bottom text-center q-mb-lg">
+    <div class="addButton">
       <!-- Need to fix positioning for mobile view -->
       <q-btn
         @click="showAddTask = true"
@@ -87,4 +87,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.addButton {
+  position: fixed;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+</style>
