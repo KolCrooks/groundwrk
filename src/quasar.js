@@ -9,9 +9,9 @@ console.log(Quasar);
 Vue.use(Quasar, {
   config: {
     brand: {
-      primary: "#006bff",
-      secondary: "#0092ff",
-      accent: "#00b8ff",
+      primary: "#ff4221",
+      secondary: "#ffd524",
+      accent: "#d6ff00",
 
       dark: "#1d1d1d",
 
@@ -23,5 +23,3 @@ Vue.use(Quasar, {
     dark: true
   }
 });
-
-
