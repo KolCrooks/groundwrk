@@ -7,7 +7,13 @@
       <q-toolbar-title>Calendar</q-toolbar-title>
       <q-btn flat round dense icon="search" />
     </q-toolbar>
-    <CalendarWeek :date="new Date()"></CalendarWeek>
+    <!-- <CalendarWeek :date="new Date()"></CalendarWeek> -->
+    <div v-for="(v, k) in assignments" :key="k">
+      Day: {{ new Date(+k) }}
+      <q-card v-for="assign in v" :key="assign.id">
+        <q-card-section>{{JSON.stringify(assign)}}</q-card-section>
+      </q-card>
+    </div>
     <LoginHandle @loggedIn="fetchData"></LoginHandle>
   </div>
 </template>
