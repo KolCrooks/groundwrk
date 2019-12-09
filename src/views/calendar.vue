@@ -11,7 +11,7 @@
     <div v-for="(v, k) in assignments" :key="k">
       Day: {{ new Date(+k) }}
       <q-card v-for="assign in v" :key="assign.id">
-        <q-card-section>{{JSON.stringify(assign)}}</q-card-section>
+        <q-card-section>{{ assign.work }}</q-card-section>
       </q-card>
     </div>
     <LoginHandle @loggedIn="fetchData"></LoginHandle>
@@ -119,6 +119,9 @@ export default {
           courseWork: cw
         });
       }
+      let temp = this.assignments;
+      this.assignments = null;
+      this.assignments = temp;
       console.log(this.assignments);
     }
   }
