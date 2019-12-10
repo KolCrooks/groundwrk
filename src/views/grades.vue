@@ -187,7 +187,7 @@ export default {
   methods: {
     fetchGrades(username, password, done) {
       let host = "http://localhost:3000";
-      host = "https://www.groundwrk.app";
+      // host = "https://www.groundwrk.app";
       if (window.location.hostname == "www.groundwrk.app")
         host = window.location.origin;
 
