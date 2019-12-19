@@ -1,5 +1,3 @@
-const fs = require("fs");
-const https = require("https");
 const express = require("express");
 const history = require("connect-history-api-fallback");
 const Powerschool = require("powerschool-api");

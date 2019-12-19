@@ -1,12 +1,12 @@
 <template>
-  <div :class="{'dimmed':notLoggedIn}">
+  <div :class="{ dimmed: notLoggedIn }">
     <q-toolbar class="toolbar bg-primary text-white">
       <q-btn flat round dense to="/">
         <q-icon v-if="!inCV" name="r_menu" />
         <q-icon v-if="inCV" name="r_arrow_back" />
       </q-btn>
       <q-toolbar-title>Grades</q-toolbar-title>
-      <div v-if="(gpaW != '') && (gpa != '')">
+      <div v-if="gpaW != '' && gpa != ''">
         <q-chip color="accent" text-color="white">GPAW: {{ gpaW }}</q-chip>
         <q-chip color="accent" text-color="white">GPAU: {{ gpa }}</q-chip>
       </div>
@@ -25,18 +25,29 @@
             :to="`/${course.id}`"
           >
             <q-item-section>{{ course.name }}</q-item-section>
-            <q-item-section side v-for="grade of course.grade" :key="grade.term">
+            <q-item-section
+              side
+              v-for="grade of course.grade"
+              :key="grade.term"
+            >
               <q-item-label caption>
                 <q-item-label class="row justify-end" caption>
                   <div class="padding relative-position">
-                    <q-avatar size="md" rounded color="accent" text-color="white">{{ grade.grade }}</q-avatar>
-                    <q-badge color="	blue" floating class="badgeMod">{{ grade.term }}</q-badge>
+                    <q-avatar
+                      size="md"
+                      rounded
+                      color="accent"
+                      text-color="white"
+                      >{{ grade.grade }}</q-avatar
+                    >
+                    <q-badge color="	blue" floating class="badgeMod">{{
+                      grade.term
+                    }}</q-badge>
                   </div>
                 </q-item-label>
-                <q-item-label
-                  class="row justify-end"
-                  caption
-                >{{ `${(+grade.percentage * 100).toFixed(0)}%` }}</q-item-label>
+                <q-item-label class="row justify-end" caption>{{
+                  `${(+grade.percentage * 100).toFixed(0)}%`
+                }}</q-item-label>
               </q-item-label>
             </q-item-section>
           </q-item>
@@ -61,7 +72,8 @@
                 color="primary"
                 text-color="white"
                 v-if="!!assignment.grade"
-              >{{ assignment.grade }}</q-avatar>
+                >{{ assignment.grade }}</q-avatar
+              >
               {{ assignment.name }}
             </q-item-section>
             <q-item-section side>
@@ -72,12 +84,12 @@
                     color="accent"
                     text-color="white"
                     v-if="!!assignment.grade"
-                  >{{ formatScore(assignment) }}</q-chip>
+                    >{{ formatScore(assignment) }}</q-chip
+                  >
                 </q-item-label>
-                <q-item-label
-                  class="row justify-end"
-                  caption
-                >{{ `${(+assignment.percentage * 100).toFixed(1)}%` }}</q-item-label>
+                <q-item-label class="row justify-end" caption>{{
+                  `${(+assignment.percentage * 100).toFixed(1)}%`
+                }}</q-item-label>
               </div>
             </q-item-section>
           </q-item>
@@ -101,7 +113,9 @@
                 label="Username"
                 hint="Enter Your Powerschool Username"
                 lazy-rules
-                :rules="[ val => val && val.length > 0 || 'Powerschool Username']"
+                :rules="[
+                  val => (val && val.length > 0) || 'Powerschool Username'
+                ]"
               />
 
               <q-input
@@ -110,7 +124,9 @@
                 label="Password"
                 type="password"
                 lazy-rules
-                :rules="[ val => val && val.length > 0 || 'Powerschool Password']"
+                :rules="[
+                  val => (val && val.length > 0) || 'Powerschool Password'
+                ]"
               />
               <div>
                 <q-btn label="Sign In" type="submit" color="primary" />
@@ -118,7 +134,13 @@
             </q-form>
           </div>
         </q-card-section>
-        <q-spinner class="fixed-center" color="primary" size="5%" :thickness="10" v-if="fetching" />
+        <q-spinner
+          class="fixed-center"
+          color="primary"
+          size="5%"
+          :thickness="10"
+          v-if="fetching"
+        />
       </q-card>
     </q-dialog>
   </div>
@@ -154,7 +176,7 @@ export default {
   beforeMount() {
     let creds = this.$store.getters.getLogin;
     this.password = creds.password;
-    if (this.password.length > 0) {
+    if (this.$store.getters.courseCache.length > 0) {
       this.username = creds.username;
       this.notLoggedIn = false;
       this.courses = this.$store.getters.courseCache;
@@ -165,6 +187,7 @@ export default {
   methods: {
     fetchGrades(username, password, done) {
       let host = "http://localhost:3000";
+      // host = "https://www.groundwrk.app";
       if (window.location.hostname == "www.groundwrk.app")
         host = window.location.origin;
 
@@ -206,6 +229,7 @@ export default {
     },
     signIn() {
       localStorage.setItem("username", this.username);
+      localStorage.setItem("password", this.password);
       this.$store.commit("login", {
         username: this.username,
         password: this.password
@@ -283,6 +307,11 @@ export default {
   },
   created() {
     let usrname = localStorage.getItem("username");
+    this.$store.commit("login", {
+      username: usrname,
+      password: localStorage.getItem("password")
+    });
+
     this.username = usrname;
   }
 };
