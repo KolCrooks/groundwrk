@@ -197,7 +197,7 @@ export default {
         headers: {
           username,
           password,
-          url: "https://powerschool.er9.org/"
+          url: "https://er9.powerschool.com/"
         }
       })
         .then(g => {

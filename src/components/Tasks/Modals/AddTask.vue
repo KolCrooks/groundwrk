@@ -14,6 +14,7 @@
             v-model="taskToSubmit.name"
             :rules="[val => !!val || 'Field is Required']"
             ref="name"
+            autofocus
             label="Task Name"
             class="col"
           />
@@ -94,7 +95,9 @@ export default {
     },
     submitTask() {
       this.addTask(this.taskToSubmit);
+      this.$emit('close')
       console.log("submitTask");
+      
     }
   }
 };
